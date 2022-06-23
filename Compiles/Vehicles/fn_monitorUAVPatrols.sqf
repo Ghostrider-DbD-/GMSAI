@@ -13,7 +13,7 @@
 		TODO: consider additional targeting commands as specified in _monitorAirPatrols
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 //diag_log format["[GMSAI] _monitorUAVPatrols called at %1 with count GMSAI_uavPatrols = %2",diag_tickTime,count GMSAI_uavPatrols];
 for "_i" from 1 to (count GMSAI_uavPatrols) do
 {

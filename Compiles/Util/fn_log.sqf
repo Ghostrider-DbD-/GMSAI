@@ -14,7 +14,7 @@
 	Notes: 
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 params["_msg",["_type",""]];
 switch (toLowerANSI _type) do 
 {

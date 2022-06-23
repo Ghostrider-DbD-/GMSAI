@@ -13,7 +13,7 @@
 	Copyright 2020 Ghostrider-GRG-
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 params["_dropPos","_group",["_target",ObjNull]];
 [format["flyInReinforcements CALLED: _dropPos = %1 | _targetPos = %2 | _group = %3 | _target = %4",_dropPos,getPosATL _target,_group,_target]] call GMSAI_fnc_log;
 /*

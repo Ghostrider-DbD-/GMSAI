@@ -13,7 +13,7 @@
 		TODO: think about how to add also the patrols that are user defined
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 if (GMSAI_numberOfAircraftPatrols <= 0) exitWith 
 {
 	["GMSAI_numberOfAircraftPatrols <= 0 - Aircraft Patrols disabled"] call GMSAI_fnc_log;

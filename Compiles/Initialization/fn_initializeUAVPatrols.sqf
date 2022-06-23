@@ -13,7 +13,7 @@
 		TODO: need to think about area-based varients of this function.
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 if (GMSAI_numberOfUAVPatrols <= 0) exitWith 
 {
 	[" GMSAI_numberOfUAVPatrols <= 0 - UAV Patrols disabled"] call GMSAI_fnc_log;

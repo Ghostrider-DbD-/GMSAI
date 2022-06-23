@@ -14,7 +14,7 @@
     - may be a bit slower to do that since the exile schedule has to figure out what function to run.
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 
 /*  Spawn land and air patrols to initialize things */
 [] call GMSAI_fnc_monitorAirPatrols;

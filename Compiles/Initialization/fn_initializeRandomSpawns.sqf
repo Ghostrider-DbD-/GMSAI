@@ -13,7 +13,7 @@
 		TODO: confirm the meaning of _locations here 
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 //diag_log format["[GMSAI] initialized %1 RandomSpawnLocations",GMSAI_StaticSpawnsRandom];
 if (GMSAI_StaticSpawnsRandom <= 0) exitWith 
 {

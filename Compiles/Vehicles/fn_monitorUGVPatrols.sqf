@@ -12,7 +12,7 @@
 	Notes:
 		-May want to take advantage of the setMode commands in GMS for these monitoring script for the case where the thing went outside the patrol area
 */
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 //diag_log format["[GMSAI] _monitorUGVPatrols called at %1 with count GMSAI_UGVPatrols = %2",diag_tickTime, count GMSAI_UGVPatrols];
 for "_i" from 1 to (count GMSAI_UGVPatrols) do
 {

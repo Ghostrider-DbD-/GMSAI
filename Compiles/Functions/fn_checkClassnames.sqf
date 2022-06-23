@@ -14,7 +14,7 @@
         Why have two of these - run search and replace ?
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 params["_classnameInfo"];  //  Assumes an array of arrays, where for each subarray, the first element is an array of classnames to be checked.
 for "_i" from 1 to (count _classnameInfo) do
 {

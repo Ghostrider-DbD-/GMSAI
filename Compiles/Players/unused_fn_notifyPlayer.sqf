@@ -15,7 +15,7 @@
 		TODO: consider adding a difficulty factor, e.g., kills with a pistol are harder
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 params["_player","_distance"];
 //diag_log format["GMSAI] _rewardPlayer:  _player = %1 | _distance = %2",_player,_distance];
 if (toLowerANSI(GMSCore_modType) isEqualTo "epoch") then

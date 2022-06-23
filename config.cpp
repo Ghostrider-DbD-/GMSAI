@@ -26,13 +26,13 @@ class CfgFunctions {
 	class GMSAI {
 		class AirVehicles {
 			// Everything having do with spawning and monitoring Air/UAV patrols is dealt with by these functions.
-			file = "addons\GMSAI\Compiles\AirVehicles";
+			file = "GMSAI\Compiles\AirVehicles";
 			class aircraftAddEventHandlers {};
 																
 		};
 		class CustomSpawns {
 			// Functions that support adding additional, custom spawns 
-			file="addons\GMSAI\Compiles\CustomSpawns";
+			file="GMSAI\Compiles\CustomSpawns";
 			class addCustomAircraftSpawn {};
 			class addCustomInfantrySpawn {};
 			class addCustomMultiSpawn {};
@@ -42,18 +42,18 @@ class CfgFunctions {
 		};
 		class dynamicSpawns {
 			// Thesee functions monitor and spawn infantry groups in the vicinity of the player
-			file = "addons\GMSAI\Compiles\DynamicSpawns";
+			file = "GMSAI\Compiles\DynamicSpawns";
 			class dynamicAIManager {};
 			class spawnDynamicPatrols {};			
 		};
 		class Functions {
 			//  Core and generic support functions.
-			file = "addons\GMSAI\Compiles\Functions";
+			file = "GMSAI\Compiles\Functions";
 			//class isBlacklisted {};  // This is a generic function that could probably be moved to GMSCore
 			class mainThread {};  // This is a scheduler for all of the events that must happen for spawns, despawns and such.
 		};	
 		class Groups {
-			file = "addons\GMSAI\Compiles\Groups";
+			file = "GMSAI\Compiles\Groups";
 			class addGroupDebugMarker {};
 			class deleteGroupDebugMarkers {};
 			class getGroupDebugMarker {};
@@ -63,7 +63,7 @@ class CfgFunctions {
 		};			
 		class Initialization {
 			// Initialization of static spawn points is handled by these functions
-			file = "addons\GMSAI\Compiles\Initialization";
+			file = "GMSAI\Compiles\Initialization";
 			class initialize {};
 			class initializeCustomSpawns {};
 			class initializeStaticSpawnsForLocations {};
@@ -76,24 +76,24 @@ class CfgFunctions {
 		};	
 		class Players {
 			// Things that GMSAI does to players.
-			file = "addons\GMSAI\Compiles\Players";
+			file = "GMSAI\Compiles\Players";
 			class getKillstreak {};
 			//class rewardPlayer {};
 			class updateKillstreak {};
 		};
 		class Reinforcements {
 			//  all things related to reinforcements in the form of paratroops 
-			file = "addons\GMSAI\Compiles\Reinforcements";
+			file = "GMSAI\Compiles\Reinforcements";
 		};
 		class startup {
-			file = "addons\GMSAI\Compiles\startup";
+			file = "GMSAI\Compiles\startup";
 			class startup {
 				postInit = 1;
 			};
 		};
 		class staticSpawns {
 			// These functions monitor and spawn infantry groups as fixed locations as players approach or leave these areas.
-			file = "addons\GMSAI\Compiles\staticSpawns";
+			file = "GMSAI\Compiles\staticSpawns";
 			class addActiveSpawn {};
 			//class addBlacklistedArea {};
 			class addStaticSpawn {};
@@ -104,43 +104,33 @@ class CfgFunctions {
 		};			
 		class Units {
 			// Stuff that happens when events fire on units in GMSAI; some of these are in addition to EH that fire on GMSCore
-			file = "addons\GMSAI\Compiles\Units";
+			file = "GMSAI\Compiles\Units";
 			class boostOnNearbyUnitKilled {};
 			class unitHit {};
 			class unitKilled {};			
 		};		
 		class Utilities {
 			// Utilities such as logging messages for GMSAI
-			file = "addons\GMSAI\Compiles\Util";
+			file = "GMSAI\Compiles\Util";
 			class log {};
 		};							
 		class Vehicles {
 			//  Everything related spawning/monitoring land / sea surface / SDV ehicle patrols is handled here.
-			file = "addons\GMSAI\Compiles\Vehicles";
+			file = "GMSAI\Compiles\Vehicles";
 			class aircraftHit {};
 			class initializeVehicleWaypoints {};
 			class monitorVehiclePatrols {};	
 			class monitorUGVPatrols {};
 			class monitorAirPatrols {};  
 			class monitorUAVPatrols {};								
-			//class nextWaypointVehicles {};
-			//class loiterWaypointVehicles {};
-			class processEmptyVehicle {};
-			//class processAircraftKilled {};
-			//class processAircraftHit {};			
+			class processEmptyVehicle {};		
 			class spawnVehiclePatrol {};	
 			class spawnUGVPatrol {};
 			class spawnUAVPatrol {};	
 			class spawnAircraftPatrol {};						
-			//class vehicleAddEventHandlers {};
 			class vehicleCrewGetOut {};	
-			//class vehicleCrewHandleDamage {};						
-			//class vehicleCrewHit {};
-			//class vehicleCrewKilled {};
 			class vehicleKilled {};
-			//class vehicleHandleDamage {};
 			class vehicleHit {};
-
 			class destroyWaypoint {};
 			class dropReinforcements {};
 			class flyInReinforcements {};						

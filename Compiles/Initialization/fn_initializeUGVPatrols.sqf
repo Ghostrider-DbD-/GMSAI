@@ -13,7 +13,7 @@
 		TODO: think about area-based functions for UGVs
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 if (GMSAI_numberOfUGVPatrols <= 0) exitWith 
 {
 	["GMSAI_numberOfUGVPatrols <= 0 - UGV Patrols disabled"] call GMSAI_fnc_log;

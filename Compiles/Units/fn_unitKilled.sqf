@@ -16,7 +16,7 @@
 
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 params["_unit","_killer","_instigator"];
 if (isNull _killer || isNull _instigator) exitWith {};
 //[format["GMSAI_fnc_unitKilled: vehicle killer = %1", typeOf (vehicle _killer),_killerIsMan]] call GMSAI_fnc_log;

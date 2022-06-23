@@ -10,7 +10,7 @@
 	Copyright 2020 Ghostrider-GRG-
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 params["_debugMarkers",[],[[]]];
 {
 	deleteMarkerLocal _x;

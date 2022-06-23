@@ -15,7 +15,7 @@
 
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 params["_group","_aircraft","_isUAV"];
 //[format["spawnParatroops: _group %1 | _aircraft %2 | _isUAV %3 | time %4",_group,_aircraft,_isUAV,diag_tickTime]] call GMSAI_fnc_log;
 // Basic conditions for spawns must be met

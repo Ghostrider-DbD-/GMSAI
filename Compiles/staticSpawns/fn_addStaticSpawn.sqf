@@ -15,7 +15,7 @@
 		TODO: need to confirm the nature of the two parameters but I think the description of them is correct	
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 //diag_log format["[GMSAI] _addStaticAiSpawn: _this = %1",_this];
 params[
 	["_areaDescriptor",[]],  //  The marker that defines the boundaries of the area to be patrolled

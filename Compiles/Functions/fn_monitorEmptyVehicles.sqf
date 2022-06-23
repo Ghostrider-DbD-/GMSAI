@@ -13,7 +13,7 @@
 		This functionality should probably be part of GMS since it is generic to missions and roamers 
 */
 
-#include "\addons\GMSAI\init\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 //diag_log format["_monitorEmptyVehicles called at %1 with queue = %2",diag_tickTime,GMSAI_emptyVehicles];
 for "_i" from 1 to (count GMSAI_emptyVehicles) do
 {

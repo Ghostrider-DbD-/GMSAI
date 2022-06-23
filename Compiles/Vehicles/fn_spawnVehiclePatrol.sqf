@@ -25,7 +25,7 @@
  
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
 params[
 		"_difficulty",
 		"_classname",			// className of vehicle to spawn

@@ -16,7 +16,7 @@
 
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
 params["_group","_aircraft","_target","_dropPos"];
 //[[format["dropReinforcements called: _group = %1 | _aircraft = %2 | _target = %3 | _dropPos %4",_group,_aircraft,_target,_dropPos]]] call GMSAI_fnc_log;
 _group setSpeedMode "LIMITED";

@@ -1,6 +1,6 @@
 
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
 params[
 	"_pos",    			// Position of the center of the area to patrol
 	"_shape",			// Marker shape: "RECTANGLE" or "ELLIPSE"

@@ -10,7 +10,7 @@
 
 	Copyright 2021 Ghostrider-GRG-
 */
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
 
 for "_i" from 1 to (count GMSAI_paratroopAircraftTypes) do 
 {

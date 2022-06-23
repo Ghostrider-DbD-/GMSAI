@@ -15,7 +15,7 @@
 		TODO: need to confirm the nature of the two parameters but I think the description of them is correct	
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 
 params[
 	["_patrolArea",""],

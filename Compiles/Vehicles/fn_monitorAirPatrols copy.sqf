@@ -11,7 +11,7 @@
 	Copyright 2020 Ghostrider-GRG-
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 [format["[GMSAI] _monitorAirPatrols called at %1 for %2 ACTIVE Air Patrols",diag_tickTime, count GMSAI_airPatrols]] call GMSAI_fnc_log;
 for "_i" from 1 to (count GMSAI_airPatrols) do
 {

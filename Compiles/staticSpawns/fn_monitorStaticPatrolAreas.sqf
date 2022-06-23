@@ -15,7 +15,7 @@
 	TODO: Add check for UAV/UGV
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 
 #define areadDescriptorIndex 0
 #define staticDescriptorIndex 1

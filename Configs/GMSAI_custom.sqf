@@ -4,7 +4,7 @@
 	By Ghostrider [GRG]
 	Copyright 2020
 */
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 //diag_log format["[GMSAI] <BEGIN> Loading Custom Configurations at %1",diag_tickTime];
 /*
 		Add your custom spawns here.

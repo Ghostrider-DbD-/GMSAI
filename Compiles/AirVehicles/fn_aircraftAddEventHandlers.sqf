@@ -1,5 +1,5 @@
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 params["_aircraft"];
 
 _aircraft addMPEventHandler["MPHit",{_this call GMSAI_fnc_processAircraftHit}];

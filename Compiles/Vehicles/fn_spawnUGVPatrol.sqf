@@ -21,7 +21,7 @@
 	Notes:
 		Locations: are any town, city etc defined at startup. 
 */
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
 params[
 		["_difficulty",0],			// Difficulty (integer) of the AI in the UGV
 		["_className",""],		// ClassName of the UGV to spawn 

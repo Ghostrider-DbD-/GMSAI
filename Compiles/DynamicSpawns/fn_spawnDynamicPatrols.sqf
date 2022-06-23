@@ -16,7 +16,7 @@
 
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 
 params["_player","_noGroups"];
 //diag_log format["GMSAI_fnc_spawnDynamicPatrols called with _player = %1 | _noGroups = %1",_player,_noGroups];

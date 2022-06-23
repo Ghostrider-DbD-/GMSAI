@@ -2,6 +2,8 @@
 	purpose: initilize GMSAI
 	Copyright 2020 Ghostrider-GRG-
 */
+// Defines that are used for configuration of units and other things 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
 
 if (!(isServer) || hasInterface) exitWith {diag_log "[GMSAI] ERROR: GMSAI SHOULD NOT BE RUN ON A CLIENT PC";};
 if (!isNil "GMSAI_Initialized") exitWith {diag_log "[GMSAI] 	ERROR: GMSAI AREADY LOADED";};
@@ -15,16 +17,14 @@ GMSAI_axis = GMSAI_worldSize / 2;
 GMSAI_mapCenter = [GMSAI_axis, GMSAI_axis, 0];
 GMSAI_mapRadius = sqrt 2 * GMSAI_axis;
 GMSAI_maxRangePatrols =  GMSAI_axis * 2 / 3;
-// Defines that are used for configuration of units and other things 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
 
 // configs for static and dynamic patrols, as well as vehicle, air, UGV and UAV patrols. 
 // Load before variables to be sure debug settings are available.
-#include "\addons\GMSAI\Configs\GMSAI_configs.sqf";
-#include "\addons\GMSAI\Configs\GMSAI_playerMessages.sqf";
+#include "\GMSAI\Configs\GMSAI_configs.sqf";
+#include "\GMSAI\Configs\GMSAI_playerMessages.sqf";
 
 // variables in which lists of areas, groups, etc are stored 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_Variables.sqf";
+#include "\GMSAI\Compiles\initialization\GMSAI_Variables.sqf";
 
 // configs for units based on the type of mod or use a default setting if no mod specified.
 
@@ -37,14 +37,14 @@ private["__GMSAI_moneyBlue","_GMSAI_moneyRed","_GMSAI_moneyGreen","_GMSAI_moneyO
 switch (toLowerANSI(GMSCore_modType)) do 
 {
 	case "exile": {	
-		#include "\addons\GMSAI\Configs\GMSAI_unitLoadoutExile.sqf"
+		#include "\GMSAI\Configs\GMSAI_unitLoadoutExile.sqf"
 	};
 	case "epoch": {	
-		#include "\addons\GMSAI\Configs\GMSAI_unitLoadoutEpoch.sqf"
+		#include "\GMSAI\Configs\GMSAI_unitLoadoutEpoch.sqf"
 	};
 
 	default { 
-		#include "\addons\GMSAI\Configs\GMSAI_unitLoadoutDefault.sqf"
+		#include "\GMSAI\Configs\GMSAI_unitLoadoutDefault.sqf"
 	};
 };
 
@@ -164,7 +164,7 @@ if (GMSAI_useCfgPricingForLoadouts && !(GMSCore_modType isEqualTo "default")) th
 
 	uiSleep 10;
 	// Lets remove any blacklisted items that might have crept in here by accident
-	diag_log format["fn_initialize: _blacklistedGear = %1",_blacklistedGear];
+	//diag_log format["fn_initialize: _blacklistedGear = %1",_blacklistedGear];
 
 	GMSAI_gearBlue = [
 		[_primary,
@@ -243,15 +243,8 @@ private _buildDate = getText(configFile >> "GMSAI_Build" >> "buildDate");
 private _version = getText(configFile >> "GMSAI_Build" >> "version");
 GMSAI_Initialized = true;
 
-[] call compileFinal preprocessFileLineNumbers "\addons\GMSAI\Configs\GMSAI_custom.sqf";
+[] call compileFinal preprocessFileLineNumbers "\GMSAI\Configs\GMSAI_custom.sqf";
 [format[" Version %1 Build %2 Date %3 Initialized at %4",_version,_build,_buildDate,diag_tickTime]] call GMSAI_fnc_log;
-
-/*
-private _patrolZone = createMarker["testZone1",[23500,17900,0]];
-_patrolZone setMarkerShape "ELLIPSE";
-_patrolZone setMarkerColor "COLORBLUE";
-private _pzGroups = [1];
-private _pzUnitsPerGroup = [2,3];
 
 
 

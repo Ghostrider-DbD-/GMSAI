@@ -13,7 +13,7 @@
 		TODO: think about area-based versions of this script
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 if (GMSAI_noVehiclePatrols <= 0) exitWith 
 {
 	["GMSAI_noVehiclePatrols <= 0 - Vehicle Patrols Disabled"] call GMSAI_fnc_log;

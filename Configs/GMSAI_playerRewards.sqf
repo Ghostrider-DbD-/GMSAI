@@ -1,7 +1,7 @@
 /*
 
 */
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 diag_log format["[GMSAI] <BEGIN> GMSAI_playerRewards.sqf at %1",diag_tickTime];
 
 GMSAI_respectGainedPerKillBase = 5;

@@ -12,7 +12,7 @@
 	Copyright 2020 Ghostrider-GRG-
 */
 
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 params["_group",["_vehicle","Man"]];
 
 private _m = createMarker[format["GMSAI_debugMarker%1",random(1000000)],getPosATL(leader _group)];

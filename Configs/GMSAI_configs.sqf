@@ -3,7 +3,7 @@
 	By Ghostrider [GRG]
 	Copyright 2020
 */
-#include "\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 
 // With debug = 1, additional debuggin information is logged or displayed on screen
 GMSAI_debug = 0;  // 0, no debugging, 1 most debug logging, 2 all debug logging
