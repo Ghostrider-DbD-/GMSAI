@@ -6,6 +6,7 @@
 #include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
 
 if (!(isServer) || hasInterface) exitWith {diag_log "[GMSAI] ERROR: GMSAI SHOULD NOT BE RUN ON A CLIENT PC";};
+diag_log format["[GMSAI] Initializing GMSAI"];
 if (!isNil "GMSAI_Initialized") exitWith {diag_log "[GMSAI] 	ERROR: GMSAI AREADY LOADED";};
 while {isNil "GMSCore_Initialized"} do {uiSleep 5};
 while {isNil "GMSCore_Side"} do {uisleep 5};

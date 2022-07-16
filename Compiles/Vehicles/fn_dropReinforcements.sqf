@@ -74,7 +74,7 @@ if (GMSAI_debug >= 1) then
 [_paraGroup,_target] call GMSCore_fnc_setHunt;
 GMSAI_paratroopGroups pushBack _paraGroup;
 
-[[format["dropReinforcements: _group %1 AREA patrol configured",_paraGroup]]] call GMSAI_fnc_log;
+//[[format["dropReinforcements: _group %1 AREA patrol configured",_paraGroup]]] call GMSAI_fnc_log;
 #define respawnAt -1
 #define timesSpawned 1
 #define lastDetected diag_tickTime 
@@ -140,7 +140,7 @@ switch (_mode) do
 			[_group,"disengage"] call GMSCore_fnc_setGroupBehavior;
 			private _wp = [_group,0];
 			private _wpPos = (getPosATL _aircraft) getPos[100, getDir _aircraft];
-			[format["GMSAI_fnc_dropReinforcements: handling case of !gunship - _group %1 located at %3 disengaging and moving to _pos %2",_group,_wpPos,position _aircraft]] call GMSCore_fnc_log;
+			//[format["GMSAI_fnc_dropReinforcements: handling case of !gunship - _group %1 located at %3 disengaging and moving to _pos %2",_group,_wpPos,position _aircraft]] call GMSCore_fnc_log;
 			_wp setWPPos _wpPos;
 			_wp setWaypointStatements ["true","this call GMSCore_fnc_nextWaypointAreaPatrol;"];	
 			_wp setWaypointType "MOVE";
@@ -154,7 +154,7 @@ _group setCurrentWaypoint _wp;
 // Clear the flag on the group that spotted the _target which could be a heli crew or UAV.
 // If a UAV spotted the crew its crew group will be stored and can be used to identify it.
 private _calledByGroup = _group getVariable[calledByUAVGroup,grpNull];
-diag_log format["_dropReinforcements: _calledByGroup = %1",_calledByGroup];
+//diag_log format["_dropReinforcements: _calledByGroup = %1",_calledByGroup];
 if (isNull _calledByGroup) then 
 {
 	_group setVariable[GMSAI_paraInbound,false];

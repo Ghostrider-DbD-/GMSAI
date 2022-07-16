@@ -74,16 +74,16 @@ for "_i" from 1 to (count GMSAI_StaticSpawns) do
 			{	
 				{[_x] call GMSCore_fnc_destroyVehicleAndCrew;} forEach _aliveGroups;
 				{
-					[format["_monitorStaticPatrolAreas: deleting marker %1",_x]] call GMSAI_fnc_log;
+					//[format["_monitorStaticPatrolAreas: deleting marker %1",_x]] call GMSAI_fnc_log;
 					deleteMarker _x;
 				} forEach _debugMarkers;				
 				//[format["_monitorStaticPatrolAreas: despawning AI at %1 with despawnTime %2 and _markerDelete %3",diag_tickTime,_despawnTime,_markerDelete]] call GMSAI_fnc_log;
 				if (_markerDelete) then {
-					[format["_monitorStaticPatrolAreas: deleting marker %1",_patrolAreaMarker]] call GMSAI_fnc_log;
+					//[format["_monitorStaticPatrolAreas: deleting marker %1",_patrolAreaMarker]] call GMSAI_fnc_log;
 					deleteMarker _patrolAreaMarker;
 					_addBack = false;
 				} else {				
-					diag_log format["monitorStaticPatrolAreas: deactivating %1",_patrolAreaMarker];
+					//diag_log format["monitorStaticPatrolAreas: deactivating %1",_patrolAreaMarker];
 					_area set[areaActiveIndex,false];
 					_area set[lastDetectedIndex,diag_tickTime];					
 					_area set[respawnAtIndex, -1];

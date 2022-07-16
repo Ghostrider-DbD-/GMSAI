@@ -60,7 +60,7 @@ private _debugMarkers = [];
 				//diag_log format["spawnPatrolTypes: case vehicle: _difficulty = %1",_difficulty];
 				if (_types isEqualTo []) then {_types = GMSAI_patrolVehicles};
 				private _vehDiff = [_difficulty] call GMSCore_fnc_getIntegerFromRange;
-				diag_log format["spawnPatrolTypes: case vehicle:",_vehDiff];
+				//diag_log format["spawnPatrolTypes: case vehicle:",_vehDiff];
 				private _t = [
 					_vehDiff,
 					selectRandomWeighted _types,
@@ -109,7 +109,7 @@ private _debugMarkers = [];
 				//diag_log format["spawnPatrolTypes: case AIR: _difficulty = %1",_difficulty];
 				if (_types isEqualTo []) then {_types = GMSAI_aircraftTypes};
 				private _airDiff = [_difficulty] call GMSCore_fnc_getIntegerFromRange;
-				diag_log format["spawnPatrolTypes: case AIR:",_airDiff];
+				//diag_log format["spawnPatrolTypes: case AIR:",_airDiff];
 				private _t = [
 					_airDiff,										
 					selectRandomWeighted _types,					
