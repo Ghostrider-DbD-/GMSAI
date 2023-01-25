@@ -77,10 +77,19 @@ GMSAI_CustomLocations = [
 			//[GMSAI_uav,[1],[]],   // if you want to specify which UAV to spawn add the classNames in a weighted array 
 			//[GMSAI_air,[1],[]],	   // if you want to specify which aircraft to spawn add the classNames in a weighted array 
 			[GMSAI_vehicle,[1],[
-				"CUP_C_Golf4_white_Civ",4,
-				"CUP_C_Golf4_whiteblood_Civ",4,
-				"CUP_C_Golf4_yellow_Civ",4,
-				"CUP_C_Octavia_CIV",3
+			//"CUP_C_Golf4_white_Civ",4,
+				//"CUP_C_Golf4_whiteblood_Civ",4,
+				//"CUP_C_Golf4_yellow_Civ",4,
+				//"CUP_C_Octavia_CIV",3
+
+				"C_Offroad_01_F",3,
+				"B_LSV_01_armed_F",2,
+				"C_SUV_01_F",2,
+				"I_C_Offroad_02_LMG_F",2,
+				//"B_T_LSV_01_armed_black_F",2,
+				//"B_T_LSV_01_armed_olive_F",2,
+				//"B_T_LSV_01_armed_sand_F",2	
+				"C_Hatchback_01_F",4	
 			]], 
 			[GMSAI_infantry,[1,2],[]]				
 		]
@@ -99,10 +108,19 @@ GMSAI_CustomLocations = [
 			//[GMSAI_uav,[1],[]],   // if you want to specify which UAV to spawn add the classNames in a weighted array 
 			//[GMSAI_air,[1],[]],	   // if you want to specify which aircraft to spawn add the classNames in a weighted array 
 			[GMSAI_vehicle,[1],[
-				"CUP_C_Golf4_white_Civ",4,
-				"CUP_C_Golf4_whiteblood_Civ",4,
-				"CUP_C_Golf4_yellow_Civ",4,
-				"CUP_C_Octavia_CIV",3
+			//"CUP_C_Golf4_white_Civ",4,
+				//"CUP_C_Golf4_whiteblood_Civ",4,
+				//"CUP_C_Golf4_yellow_Civ",4,
+				//"CUP_C_Octavia_CIV",3
+
+				"C_Offroad_01_F",3,
+				"B_LSV_01_armed_F",2,
+				"C_SUV_01_F",2,
+				"I_C_Offroad_02_LMG_F",2,
+				//"B_T_LSV_01_armed_black_F",2,
+				//"B_T_LSV_01_armed_olive_F",2,
+				//"B_T_LSV_01_armed_sand_F",2	
+				"C_Hatchback_01_F",4	
 			]], 
 			[GMSAI_infantry,[1,2],[]]				
 		]
@@ -121,10 +139,19 @@ GMSAI_CustomLocations = [
 			//[GMSAI_uav,[1],[]],   // if you want to specify which UAV to spawn add the classNames in a weighted array 
 			//[GMSAI_air,[1],[]],	   // if you want to specify which aircraft to spawn add the classNames in a weighted array 
 			[GMSAI_vehicle,[1],[
-				"CUP_C_Golf4_white_Civ",4,
-				"CUP_C_Golf4_whiteblood_Civ",4,
-				"CUP_C_Golf4_yellow_Civ",4,
-				"CUP_C_Octavia_CIV",3
+			//"CUP_C_Golf4_white_Civ",4,
+				//"CUP_C_Golf4_whiteblood_Civ",4,
+				//"CUP_C_Golf4_yellow_Civ",4,
+				//"CUP_C_Octavia_CIV",3
+
+				"C_Offroad_01_F",3,
+				"B_LSV_01_armed_F",2,
+				"C_SUV_01_F",2,
+				"I_C_Offroad_02_LMG_F",2,
+				//"B_T_LSV_01_armed_black_F",2,
+				//"B_T_LSV_01_armed_olive_F",2,
+				//"B_T_LSV_01_armed_sand_F",2	
+				"C_Hatchback_01_F",4	
 			]], 
 			[GMSAI_infantry,[1,2],[]]				
 		]
@@ -143,10 +170,19 @@ GMSAI_CustomLocations = [
 			//[GMSAI_uav,[1],[]],   // if you want to specify which UAV to spawn add the classNames in a weighted array 
 			//[GMSAI_air,[1],[]],	   // if you want to specify which aircraft to spawn add the classNames in a weighted array 
 			[GMSAI_vehicle,[1],[
-				"CUP_C_Golf4_white_Civ",4,
-				"CUP_C_Golf4_whiteblood_Civ",4,
-				"CUP_C_Golf4_yellow_Civ",4,
-				"CUP_C_Octavia_CIV",3
+				//"CUP_C_Golf4_white_Civ",4,
+				//"CUP_C_Golf4_whiteblood_Civ",4,
+				//"CUP_C_Golf4_yellow_Civ",4,
+				//"CUP_C_Octavia_CIV",3
+
+				"C_Offroad_01_F",3,
+				"B_LSV_01_armed_F",2,
+				"C_SUV_01_F",2,
+				"I_C_Offroad_02_LMG_F",2,
+				//"B_T_LSV_01_armed_black_F",2,
+				//"B_T_LSV_01_armed_olive_F",2,
+				//"B_T_LSV_01_armed_sand_F",2	
+				"C_Hatchback_01_F",4				
 			]], 
 			[GMSAI_infantry,[1,2],[]]				
 		]
@@ -411,7 +447,7 @@ GMSAI_paratroopAircraftTypes = [  // Note: this is a weighted array of vehicles 
 	"B_Heli_Transport_03_unarmed_green_F",5,
 	"I_Heli_light_03_F",1,
 	"O_Heli_Light_02_F",2,
-	"CUP_B_Mi171Sh_Unarmed_ACR",3,
+	//"CUP_B_Mi171Sh_Unarmed_ACR",3,
 	"B_Heli_Transport_03_unarmed_F",5
 	
 ];
@@ -420,7 +456,7 @@ GMSAI_paratroopAircraftTypes = [  // Note: this is a weighted array of vehicles 
 	Aircraft Patrol Spawn Configs
 *********************************/
 // TODO: aircraft could be spread out more on the map.
-GMSAI_numberOfAircraftPatrols = 8;
+GMSAI_numberOfAircraftPatrols = 0;
 GMSAI_aircraftPatrolDifficulty =  [GMSAI_difficultyBlue,0.90,GMSAI_difficultyRed,0.10];
 GMSAI_aircraftRespawnTime = 600;  //[600,900];  //  Min, Max respawn time
 GMSAI_aircraftDesapwnTime = 120;
@@ -439,10 +475,10 @@ GMSAI_aircraftTypes = [
 	"a2_ch47f_armed_plus_EPOCH",1,
 	#endif 
 
-	"CUP_B_AW159_HIL",1,
-	"CUP_B_412_Mil_Transport_HIL",1,
-	"CUP_B_MH6J_OBS_USA",1,
-	"CUP_B_UH1Y_UNA_USMC",1,
+	//"CUP_B_AW159_HIL",1,
+	//"CUP_B_412_Mil_Transport_HIL",1,
+	//"CUP_B_MH6J_OBS_USA",1,
+	//"CUP_B_UH1Y_UNA_USMC",1,
 
 	//"B_Heli_Transport_01_F",5,
 	"B_Heli_Light_01_F",1,
@@ -471,7 +507,7 @@ GMSAI_UAVPatrolresapwns = -1;
 GMSAI_UAVrespawntime = 300;
 //GMSAI_UAVdespawnTime = 120;
 
-GMSAI_numberOfUGVPatrols = 10;
+GMSAI_numberOfUGVPatrols = 0;
 GMSAI_UGVtypes = [  // 
 	// Stompers
 	"O_UGV_01_rcws_F",5 // east - Use for Exile  
@@ -511,33 +547,33 @@ GMSAI_patrolVehicles = [  // Weighted array of vehicles spawned to patrol roads 
 		END Testing Block
 
 	*/
-	"CUP_C_Skoda_Red_CIV",4,
-	"CUP_C_Skoda_White_CIV",4,
-	"CUP_C_Skoda_Blue_CIV",4,
-	"CUP_C_Skoda_Green_CIV",4,
-	"CUP_C_SUV_CIV",2,
+	//"CUP_C_Skoda_Red_CIV",4,
+	//"CUP_C_Skoda_White_CIV",4,
+	//"CUP_C_Skoda_Blue_CIV",4,
+	//"CUP_C_Skoda_Green_CIV",4,
+	//"CUP_C_SUV_CIV",2,
 
-	"CUP_B_HMMWV_Transport_USA",3,
-	"CUP_B_HMMWV_Unarmed_USA",3,
+	//"CUP_B_HMMWV_Transport_USA",3,
+	//"CUP_B_HMMWV_Unarmed_USA",3,
 	//"CUP_C_SUV_TK",1,
-	"CUP_B_LR_Transport_CZ_D",2,
+	//"CUP_B_LR_Transport_CZ_D",2,
 
-	"CUP_C_Datsun_Covered",3,
-	"CUP_C_Datsun_Plain",3,
-	"CUP_C_Datsun_Tubeframe",3,
-	"CUP_C_Datsun_4seat",3,
-	"CUP_C_Datsun",3,
-	"CUP_C_Golf4_green_Civ",4,
-	"CUP_C_Golf4_red_Civ",4,
-	"CUP_C_Golf4_blue_Civ",4,
-	"CUP_C_Golf4_black_Civ",4,
-	"CUP_C_Golf4_kitty_Civ",2,
-	"CUP_C_Golf4_reptile_Civ",4,
-	"CUP_C_Golf4_camodigital_Civ",4,
-	"CUP_C_Golf4_camodark_Civ",4,
-	"CUP_C_Golf4_camo_Civ",4,
+	//"CUP_C_Datsun_Covered",3,
+	//"CUP_C_Datsun_Plain",3,
+	//"CUP_C_Datsun_Tubeframe",3,
+	//"CUP_C_Datsun_4seat",3,
+	//"CUP_C_Datsun",3,
+	//"CUP_C_Golf4_green_Civ",4,
+	//"CUP_C_Golf4_red_Civ",4,
+	//"CUP_C_Golf4_blue_Civ",4,
+	//"CUP_C_Golf4_black_Civ",4,
+	//"CUP_C_Golf4_kitty_Civ",2,
+	//"CUP_C_Golf4_reptile_Civ",4,
+	//"CUP_C_Golf4_camodigital_Civ",4,
+	//"CUP_C_Golf4_camodark_Civ",4,
+	//"CUP_C_Golf4_camo_Civ",4,
 
-	"CUP_B_M1030",1,
+	//"CUP_B_M1030",1,
 
 	//"CUP_C_Ural_Civ_03",2,
 	//"CUP_C_Ural_Open_Civ_03",2,
@@ -545,12 +581,12 @@ GMSAI_patrolVehicles = [  // Weighted array of vehicles spawned to patrol roads 
 	//"CUP_B_TowingTractor_USMC",0.1,
 	//"CUP_C_C47_CIV",
 	
-	"CUP_B_LR_Transport_CZ_W",2,
+	//"CUP_B_LR_Transport_CZ_W",2,
 
-	"CUP_C_Golf4_white_Civ",4,
-	"CUP_C_Golf4_whiteblood_Civ",4,
-	"CUP_C_Golf4_yellow_Civ",4,
-	"CUP_C_Octavia_CIV",3,
+	//"CUP_C_Golf4_white_Civ",4,
+	//"CUP_C_Golf4_whiteblood_Civ",4,
+	//"CUP_C_Golf4_yellow_Civ",4,
+	//"CUP_C_Octavia_CIV",3,
 	//"CUP_C_Ural_Civ_01",2,
 	//"CUP_C_Ural_Open_Civ_01",2,
 	
@@ -558,17 +594,17 @@ GMSAI_patrolVehicles = [  // Weighted array of vehicles spawned to patrol roads 
 	//"CUP_B_Ural_Open_CDF",2,
 	//"CUP_C_Ural_Open_Civ_02",2,
 	
-	"CUP_B_HMMWV_Ambulance_USA",3,
+	//"CUP_B_HMMWV_Ambulance_USA",3,
 	
-	"CUP_C_UAZ_Unarmed_TK_CIV",2,
-	"CUP_C_UAZ_Open_TK_CIV",2,
-	"CUP_B_UAZ_Unarmed_CDF",3,
+	//"CUP_C_UAZ_Unarmed_TK_CIV",2,
+	//"CUP_C_UAZ_Open_TK_CIV",2,
+	//"CUP_B_UAZ_Unarmed_CDF",3,
 	//"CUP_B_Ural_Empty_CDF",2
 
 	"C_Offroad_01_F",3,
-	//"B_LSV_01_armed_F",2,
+	"B_LSV_01_armed_F",2,
 	"C_SUV_01_F",2,
-	//"I_C_Offroad_02_LMG_F",2,
+	"I_C_Offroad_02_LMG_F",2,
 	//"B_T_LSV_01_armed_black_F",2,
 	//"B_T_LSV_01_armed_olive_F",2,
 	//"B_T_LSV_01_armed_sand_F",2	
@@ -636,10 +672,12 @@ GMSAI_staticVillageGroups = true;  			//  false to disable
 GMSAI_staticVillageUnitsPerGroup = [2,4];  	// This can be an integer or array [min, max] and only applies to infantry
 GMSAI_staticVillagePatrolTypes = [
 	[GMSAI_vehicle,[1],[
-		"CUP_C_Golf4_white_Civ",4,
-		"CUP_C_Golf4_whiteblood_Civ",4,
-		"CUP_C_Golf4_yellow_Civ",4,
-		"CUP_C_Octavia_CIV",3
+		//"CUP_C_Golf4_white_Civ",4,
+		//"CUP_C_Golf4_whiteblood_Civ",4,
+		//"CUP_C_Golf4_yellow_Civ",4,
+		//"CUP_C_Octavia_CIV",3
+		"C_SUV_01_F",2,
+		"C_Hatchback_01_F",4
 	]], 	// The format for these is [
 		// patrolType, 
 		// Number of groups/vehicles to spawn as either an integer or range [min,max],
@@ -660,15 +698,16 @@ GMSAI_staticCityPatrolTypes = [  //  for patrols beyond infantry
 	[GMSAI_vehicle,[1,2],[
 		//"C_Offroad_01_F",3,
 		//"B_LSV_01_armed_F",2,
-		//"C_SUV_01_F",2,
+		"C_SUV_01_F",2,
+		"C_Hatchback_01_F",4		
 		//"I_C_Offroad_02_LMG_F",2,
 		//"B_T_LSV_01_armed_black_F",2,
 		//"B_T_LSV_01_armed_olive_F",2,
 		//"B_T_LSV_01_armed_sand_F",2,
-		"CUP_C_Golf4_white_Civ",4,
-		"CUP_C_Golf4_whiteblood_Civ",4,
-		"CUP_C_Golf4_yellow_Civ",4,
-		"CUP_C_Octavia_CIV",3		
+		//"CUP_C_Golf4_white_Civ",4,
+		//"CUP_C_Golf4_whiteblood_Civ",4,
+		//"CUP_C_Golf4_yellow_Civ",4,
+		//"CUP_C_Octavia_CIV",3		
 		/*
 		"B_MRAP_01_hmg_F",1,
 		"O_MRAP_02_hmg_F",1,
@@ -690,10 +729,10 @@ GMSAI_staticCapitalPatrolTypes = [  //  for patrols beyond infantry
 	[GMSAI_vehicle,[1,3],[
 		//"B_G_Offroad_01_armed_F",3,
 		//"O_G_Offroad_01_armed_F",3,
-		"CUP_C_Golf4_white_Civ",4,
-		"CUP_C_Golf4_whiteblood_Civ",4,
-		"CUP_C_Golf4_yellow_Civ",4,
-		"CUP_C_Octavia_CIV",3
+		//"CUP_C_Golf4_white_Civ",4,
+		//"CUP_C_Golf4_whiteblood_Civ",4,
+		//"CUP_C_Golf4_yellow_Civ",4,
+		//"CUP_C_Octavia_CIV",3
 		/*		
 		"B_MRAP_01_gmg_F",1,
 		"O_MRAP_02_gmg_F", 1,
@@ -701,6 +740,8 @@ GMSAI_staticCapitalPatrolTypes = [  //  for patrols beyond infantry
 		"B_APC_Wheeled_01_cannon_F",0.5,
 		"I_APC_Wheeled_03_cannon_F",0.5
 		*/
+		"C_SUV_01_F",2,
+		"C_Hatchback_01_F",4		
 	]],
 	//[GMSAI_ugv,[1,2],[]],	
 	[GMSAI_uav,[1],[]],
@@ -717,7 +758,9 @@ GMSAI_staticMarineGroups = false;  //  false to disable
 GMSAI_staticMarineUnitsPerGroup = [2,3];
 GMSAI_staticMarinelPatrolTypes = [ //  for patrols beyond infantry
 	[GMSAI_vehicle,[1],[
-		"CUP_B_RHIB2Turret_USMC",1
+		//"CUP_B_RHIB2Turret_USMC",1
+		"C_SUV_01_F",2,
+		"C_Hatchback_01_F",4		
 	]],
 	[GMSAI_air,[1],[]]
 ];
@@ -731,10 +774,12 @@ GMSAI_staticOtherGroups = false;  //  false to disable
 GMSAI_staticOtherUnitsPerGroup = [2,4]; // as above, this can be an integer or array with a range
 GMSAI_staticOtherPatrolTypes = [ //  for patrols beyond infantry
 	[GMSAI_vehicle,[1],[
-		"CUP_C_Golf4_white_Civ",4,
-		"CUP_C_Golf4_whiteblood_Civ",4,
-		"CUP_C_Golf4_yellow_Civ",4,
-		"CUP_C_Octavia_CIV",3		
+		//"CUP_C_Golf4_white_Civ",4,
+		//"CUP_C_Golf4_whiteblood_Civ",4,
+		//"CUP_C_Golf4_yellow_Civ",4,
+		//"CUP_C_Octavia_CIV",3		
+		"C_SUV_01_F",2,
+		"C_Hatchback_01_F",4		
 	]],
 	[GMSAI_infantry,[1,2],[]]
 ];
@@ -750,10 +795,12 @@ GMSAI_staticRandomGroups = [1];  //[1,3];     // as above, this can be an intege
 GMSAI_staticRandomUnitsPerGroup = [1]; //[1,3];   // as above, this can be an integer or array with a range
 GMSAI_staticRandomPatrolTypes = [  //  for patrols beyond infantry
 	[GMSAI_vehicle,[1],[
-		"CUP_C_Golf4_white_Civ",4,
-		"CUP_C_Golf4_whiteblood_Civ",4,
-		"CUP_C_Golf4_yellow_Civ",4,
-		"CUP_C_Octavia_CIV",3		
+		//"CUP_C_Golf4_white_Civ",4,
+		//"CUP_C_Golf4_whiteblood_Civ",4,
+		//"CUP_C_Golf4_yellow_Civ",4,
+		//"CUP_C_Octavia_CIV",3		
+		"C_SUV_01_F",2,
+		"C_Hatchback_01_F",4		
 	]],		
 	
 	[GMSAI_ugv,[1],[]],	
