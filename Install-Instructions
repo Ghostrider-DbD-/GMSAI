@@ -1,0 +1,45 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+//GMS_AI Install Instructions//
+	
+	*Ensure GMS_Core is installed prior to this script otherwise it will not work!*
+
+//Step 1:
+
+	Download the file "GMS_AI-master" and unextract it to your documents.
+
+//Step 2:
+
+	Open the following files and edit the settings to your need (Remember to save any changes!);
+	
+	GMSAI_configs.sqf - General settings/AI deployment etc.
+
+	GMSAI_custom.sqf - Custom spawn locations.
+
+	GMSAI_playermessages.sqf - Player messages.
+
+	GMSAI_playerRewards.sqf - Player rewards.
+
+	GMSAI_unitLoadoutDefault.sqf - Loadout options for Default servers.
+
+	GMSAI_unitLoadoutEpoch.sqf - Loadout options for Epoch servers.
+
+	GMSAI_unitLoadoutExile.sqf - Loadout options for Exile servers.
+
+//Step 3:
+
+	Rename the "GMS_AI-master folder" to "GMSMaster" and pack it into a pbo.
+
+	Add the "GMSAI.pbo" file to your server addons folder (@Exileserver\addons or @Epochhive\addons).
+
+	Restart your server and if you run into any issues check your client/server RPT for errors.
+
+//Additional script links from GhostriderGaming [GRG]:
+
+	GMS_Core: https://github.com/Ghostrider-DbD-/GMSCore
+
+	GMS_RC: https://github.com/Ghostrider-DbD-/GMS_RC
+
+	Repair/Rearm/Refule: https://github.com/Ghostrider-DbD-/Rearm-Repair-Refuel-
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////
