@@ -21,6 +21,35 @@ GMSAI_baseSkilByDifficulty = [
 	0.75, // green 
 	0.9 // Orange 
 ];
+GMSAI_killMessageToAllPlayers = [
+	/*
+		These settings are used by GMSCore to determine what kinds of messages to use to notify players of a kill.
+		SystemChat can be broadcast to all players.
+		Comment out all options to disable this function (faster)
+	*/
+
+	//"toast",  // Exile only 
+	//"epochMsg", // Epoch only 
+	//"hint",
+	//"cutText",
+	//"dynamic",  // A display with information about rewards formated in a list on the left side of the screen
+				  // Not recommended
+	//"systemChat"
+]; 
+GMSAI_killMessageTypesKiller = [
+	/*
+		These settings are used by GMSCore to determine what kinds of messages to use to notify players of a kill.
+		SystemChat can be broadcast to all players.
+		The other notifications will only be viewed by the player reponsible for the kill.
+	*/
+
+	//"toast",  // Exile only 
+	//"epochMsg", // Epoch only 
+	//"hint",
+	//"cutText",
+	"dynamic",  // A display with information about rewards formated in a list on the left side of the screen
+	"systemChat"
+];
 GMSAI_rewards = [[0,0],[0,0],[0,0],[0,0]];
 private _modType = [] call GMSCore_fnc_getModType;
 switch (_modType) do 
