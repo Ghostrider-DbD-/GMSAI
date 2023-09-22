@@ -139,15 +139,16 @@ for "_i" from 1 to (count GMSAI_UGVPatrols) do
 						] call GMSAI_fnc_spawnUGVPatrol;
 						// TODO: Check this code works
 						_newPatrol params["_group","_ugv"];
-						//[format["GMSAI_fnc_monitorUGVPatrols: spawned vehicle patrol at %1 using vehicle %2",_pos, typeOf _ugv]] call GMSAI_fnc_log;
+						[format["GMSAI_fnc_monitorUGVPatrols: spawned vehicle patrol at %1 using vehicle %2",_pos, typeOf _ugv]] call GMSAI_fnc_log;
 						if !(isNull _group) then 
 						{
-							if (GMSAI_debug > 0) then {[format["monitorUGVPatrols: _newPatrol spawned: group %1 : UGV type %2", _newPatrol select 0, typeOf (_newPatrol select 1)]] call GMSAI_fnc_log};
+							//if (GMSAI_debug >= 0) then {[format["monitorUGVPatrols: _newPatrol spawned: group %1 : UGV type %2", _newPatrol select 0, typeOf (_newPatrol select 1)]] call GMSAI_fnc_log};
 							_ugvPatrol set[1,_group];
 							_ugvPatrol set[2,_ugv];
 							_ugvPatrol set[3,diag_tickTime];
 							_ugvPatrol set[4,_timesSpawned + 1];
-							//GMSAI_UGVGroups pushBack _group;
+							GMSAI_UGVGroups pushBack _group;
+							//[format["monitorUGVPatrols: count GMSAI_UGVGroups = %1",count GMSAI_UGVGroups] call GMSAI_fnc_log];
 						} else {
 							_ugvPatrol set[5,diag_tickTime + ([_respawnTime] call GMSCore_fnc_getNumberFromRange)];
 							_ugvPatrol set[3,-1];						

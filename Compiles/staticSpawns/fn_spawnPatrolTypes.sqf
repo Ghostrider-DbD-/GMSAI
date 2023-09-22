@@ -89,6 +89,7 @@ private _debugMarkers = [];
 				] call GMSAI_fnc_spawnUGVPatrol;
 				_group = _t select 0;
 				GMSAI_UGVGroups pushBack _group;
+				[format["GMSAI_fnc_spawnPatrolTypes: spawned UGV patrol with group %1 | count GMSAI_UGVGroups %2",_group, GMSAI_UGVGroups]] call GMSAI_fnc_log;
 			};
 			case GMSAI_uav: {
 				//diag_log format["spawnPatrolTypes: case UAV"];

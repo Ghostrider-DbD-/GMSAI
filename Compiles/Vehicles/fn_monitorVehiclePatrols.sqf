@@ -146,7 +146,7 @@ for "_i" from 1 to (count GMSAI_vehiclePatrols) do
 							_vehiclePatrol set[currVehicle,_veh];
 							_vehiclePatrol set[vehLastSpawned,diag_tickTime];
 							_vehiclePatrol set[vehTimesSpawned,_timesSpawned + 1];
-							//GMSAI_vehicleGroups pushBack _group;
+							GMSAI_vehicleGroups pushBack _group;
 						} else {
 							// Something happened - try again later
 							_vehiclePatrol set[vehRespawnAt,diag_tickTime + ([_respawnTime] call GMSCore_fnc_getNumberFromRange)];

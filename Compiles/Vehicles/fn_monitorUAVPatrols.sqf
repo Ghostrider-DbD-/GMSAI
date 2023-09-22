@@ -73,6 +73,7 @@ for "_i" from 1 to (count GMSAI_uavPatrols) do
 						_uavPatrol set[3,diag_tickTime];
 						_uavPatrol set[4,_timesSpawned + 1];
 						GMSAI_UAVGroups pushBack _group;
+						//[format["monitorUAVPatrols: count GMSAI_UAVGroups = %1",count GMSAI_UAVGroups] call GMSAI_fnc_log];
 					} else {
 						// Something happened - try again later
 						_uavPatrol set[5,diag_tickTime + ([_respawnTime] call GMSCore_fnc_getNumberFromRange)];

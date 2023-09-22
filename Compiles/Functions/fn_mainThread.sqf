@@ -60,9 +60,9 @@ while {true} do
             GMSAI_UGVGroups
         ];
         [format[
-            "Time %1 | %2 Infantry Groups | %3 Air Patrols | %4 Reinforcements | %5 Vehicle Patrols | %6 UAVs | %7 UGVs", 
+            "Time %1 | %2 Infantry Patrols | %4 Paratroops |%3 Air Patrols |  %5 Vehicle Patrols | %6 UAVs | %7 UGVs", 
             diag_tickTime,
-            count GMSAI_infantryGroups,
+            (count GMSAI_infantryGroups) + (count GMSAI_dynamicGroups),
             count GMSAI_AirPatrolGroups, 
             count GMSAI_paratroopGroups,
             count GMSAI_vehicleGroups,
