@@ -93,6 +93,8 @@ params[
 		[GMSAI_fnc_vehicleKilled]
 	] call GMSCore_fnc_spawnPatrolAircraft;
 
+	diag_log format["GMSAI_fnc_spawnAircraftPatrol: _patrolArea = %1",_patrolArea];
+
 	if !(isNull _aircraft) then 
 	{
 		[

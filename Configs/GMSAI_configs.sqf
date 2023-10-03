@@ -507,7 +507,7 @@ GMSAI_paratroopAircraftTypes = [  // Note: this is a weighted array of vehicles 
 	Aircraft Patrol Spawn Configs
 *********************************/
 // TODO: aircraft could be spread out more on the map.
-GMSAI_numberOfAircraftPatrols = 0;
+GMSAI_numberOfAircraftPatrols = 3;
 GMSAI_aircraftPatrolDifficulty =  [GMSAI_difficultyBlue,0.90,GMSAI_difficultyRed,0.10];
 GMSAI_aircraftRespawnTime = 600;  //[600,900];  //  Min, Max respawn time
 GMSAI_aircraftDesapwnTime = 120;
@@ -542,7 +542,7 @@ GMSAI_aircraftTypes = [
 	//"B_Heli_Transport_03_unarmed_F",5
 ];
 
-GMSAI_numberOfUAVPatrols = 0;
+GMSAI_numberOfUAVPatrols = 3;
 GMSAI_UAVTypes = [  //  note that faction may matter here.
 	// East 
 	"O_UAV_01_F",2,  // Darter equivalent, unarmed
@@ -558,7 +558,7 @@ GMSAI_UAVPatrolresapwns = -1;
 GMSAI_UAVrespawntime = 300;
 //GMSAI_UAVdespawnTime = 120;
 
-GMSAI_numberOfUGVPatrols = 0;
+GMSAI_numberOfUGVPatrols = 10;
 GMSAI_UGVtypes = [  // 
 	// Stompers
 	"O_UGV_01_rcws_F",5 // east - Use for Exile  

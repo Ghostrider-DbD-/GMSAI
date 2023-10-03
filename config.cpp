@@ -10,9 +10,9 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 class GMSAI_Build {
-	version = "1.022";
-	build = "31";
-	buildDate = "09-23-22";
+	version = "1.023";
+	build = "32";
+	buildDate = "10-02-23";
 };
 class CfgPatches {
 	class GMSAI {
