@@ -91,38 +91,52 @@ if (GMSAI_staticVillageGroups) then
 {
 	_return append (["NameVillage",GMSAI_staticVillageSettings,"COLORCIVILIAN"] call _fn_setupLocationType);
 } else {
-	[format["Static Spawns for Villages Disabled"]] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {
+		[format["Static Spawns for Villages Disabled"]] call GMSAI_fnc_log;
+	};
 };
 if (GMSAI_staticCityGroups) then 
 {
 	_return append ( ["NameCity",GMSAI_staticCitySettings,"COLORKHAKI"] call _fn_setupLocationType);
 } else {
-	[format["Static Spawns for Cities Disabled"]] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {	
+		[format["Static Spawns for Cities Disabled"]] call GMSAI_fnc_log;
+	};
 };
 if (GMSAI_staticCapitalGroups) then 
 {
 	_return append (["NameCityCapital",GMSAI_staticCapitalSettings,"COLORGREY"] call _fn_setupLocationType);
 } else {
-	[format["Static Spawns for Capital Cities Disabled"]] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {	
+		[format["Static Spawns for Capital Cities Disabled"]] call GMSAI_fnc_log;
+	};
 };
 if (GMSAI_staticMarineGroups) then 
 {
 	_return append (["NameMarine",GMSAI_staticMarineSettings,"COLORBLUE"] call _fn_setupLocationType);
 } else {
-	[format["Static Spawns for Marine Areas Disabled"]] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {
+		[format["Static Spawns for Marine Areas Disabled"]] call GMSAI_fnc_log;
+	};
 };
 if (GMSAI_staticOtherGroups) then 
 {
 	_return append (["NameLocal",GMSAI_staticOtherSettings,"COLORYELLOW"] call _fn_setupLocationType);
 } else {
-	[format["Static Spawns for Other Areas Disabled"]] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {	
+		[format["Static Spawns for Other Areas Disabled"]] call GMSAI_fnc_log;
+	};
 };
 if (GMSAI_staticOtherGroups) then 
 {
 	_return append (["Airport",GMSAI_staticOtherSettings,"COLORGREEN"] call _fn_setupLocationType);
 } else {
-	[format["Static Spawns for Airports Disabled"]] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {	
+		[format["Static Spawns for Airports Disabled"]] call GMSAI_fnc_log;
+	};
 };
 
-[format[" Initialized Static Spawns for locations at %1",diag_tickTime]] call GMSAI_fnc_log;
+if (GMSAI_debug > 0) then {
+	[format[" Initialized Static Spawns for locations at %1",diag_tickTime]] call GMSAI_fnc_log;
+};
 _return

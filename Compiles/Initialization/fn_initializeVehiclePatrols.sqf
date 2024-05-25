@@ -16,7 +16,7 @@
 #include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 if (GMSAI_noVehiclePatrols <= 0) exitWith 
 {
-	["GMSAI_noVehiclePatrols <= 0 - Vehicle Patrols Disabled"] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {["GMSAI_noVehiclePatrols <= 0 - Vehicle Patrols Disabled"] call GMSAI_fnc_log};
 };
 if (GMSAI_patrolVehicles isEqualTo []) exitWith 
 {
@@ -40,4 +40,5 @@ for "_i" from 1 to GMSAI_noVehiclePatrols do
 		crewOnFoot
 	]; // set respawnat to 10 to allow server to get started before spawning vehicle patrols
 };
-[format[" Initialized Land Vehicle patrols at %1",diag_tickTime]] call GMSAI_fnc_log;
+
+if (GMSAI_debug > 0) then {[format[" Initialized Land Vehicle patrols at %1",diag_tickTime]] call GMSAI_fnc_log};

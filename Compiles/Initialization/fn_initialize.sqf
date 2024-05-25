@@ -51,19 +51,19 @@ switch (toLowerANSI(GMSCore_modType)) do
 
 if (GMSAI_validateClassnames) then 
 {
-	[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_paratroopAircraftTypes']] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_paratroopAircraftTypes']] call GMSAI_fnc_log};
 	[GMSAI_paratroopAircraftTypes,true] call GMSCore_fnc_checkClassnamesArray;
 	[GMSAI_paratroopAircraftTypes,true] call GMSCore_fnc_checkClassNamePrices;
-	[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_aircraftTypes']] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_aircraftTypes']] call GMSAI_fnc_log};
 	[GMSAI_aircraftTypes,true] call GMSCore_fnc_checkClassnamesArray;
 	[GMSAI_aircraftTypes,true] call GMSCore_fnc_checkClassNamePrices;	
-	[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_UAVTypes']] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_UAVTypes']] call GMSAI_fnc_log};
 	[GMSAI_UAVTypes,true] call GMSCore_fnc_checkClassnamesArray;
 	[GMSAI_UAVTypes,true] call GMSCore_fnc_checkClassNamePrices;	
-	[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_UGVtypes']] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_UGVtypes']] call GMSAI_fnc_log};
 	[GMSAI_UGVtypes,true] call GMSCore_fnc_checkClassnamesArray;	
 	[GMSAI_UGVtypes,true] call GMSCore_fnc_checkClassNamePrices;	
-	[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_patrolVehicles']] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_patrolVehicles']] call GMSAI_fnc_log};
 	[GMSAI_patrolVehicles,true] call GMSCore_fnc_checkClassnamesArray;
 	[GMSAI_patrolVehicles,true] call GMSCore_fnc_checkClassNamePrices;		
 };
@@ -95,7 +95,7 @@ private _blacklistedGear = [];
 
 if (GMSAI_useCfgPricingForLoadouts && !(GMSCore_modType isEqualTo "default")) then
 {
-	diag_log "[GMSAI] _unitLoadoutExile: running dynamically determined loadouts";
+	if (GMSAI_debug > 0) then {diag_log "[GMSAI] _unitLoadoutExile: running dynamically determined loadouts"};
 	
 	private _gearBlue = [GMSAI_maxPricePerItem,_blacklistedGear,[/* blacklisted categories*/],[ /*GMSAI_blacklistedMods*/]] call GMSCore_fnc_dynamicConfigs;
 	
@@ -132,9 +132,9 @@ if (GMSAI_useCfgPricingForLoadouts && !(GMSCore_modType isEqualTo "default")) th
 	GMSAI_gearGreen = GMSAI_gearBlue;
 	GMSAI_gearOrange = GMSAI_gearBlue;	
 	
-	diag_log "[GMSAI] CfgPricing-based loadouts used";
+	if (GMSAI_debug > 0) then {diag_log "[GMSAI] CfgPricing-based loadouts used"};
 } else {
-	diag_log "[GMSAI] Config-based loadouts used";
+	if (GMSAI_debug > 0) then {diag_log "[GMSAI] Config-based loadouts used"};
 
 	if (GMSAI_validateClassnames) then 
 	{

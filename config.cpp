@@ -10,9 +10,9 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 class GMSAI_Build {
-	version = "1.023";
-	build = "32";
-	buildDate = "10-02-23";
+	version = "1.10";
+	build = "39";
+	buildDate = "05-24-24";
 };
 class CfgPatches {
 	class GMSAI {
@@ -118,6 +118,8 @@ class CfgFunctions {
 			//  Everything related spawning/monitoring land / sea surface / SDV ehicle patrols is handled here.
 			file = "GMSAI\Compiles\Vehicles";
 			class aircraftHit {};
+			class findPositionAirPatrol {};
+			class findPositionLandPatrol {};
 			class initializeVehicleWaypoints {};
 			class monitorVehiclePatrols {};	
 			class monitorUGVPatrols {};

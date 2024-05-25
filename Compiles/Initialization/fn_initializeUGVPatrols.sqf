@@ -16,7 +16,7 @@
 #include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 if (GMSAI_numberOfUGVPatrols <= 0) exitWith 
 {
-	["GMSAI_numberOfUGVPatrols <= 0 - UGV Patrols disabled"] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {[" GMSAI_numberOfUGVPatrols <= 0 - UGV Patrols disabled"] call GMSAI_fnc_log};
 };
 if (GMSAI_UGVtypes isEqualTo []) exitWith 
 {
@@ -27,4 +27,5 @@ for "_i" from 1 to GMSAI_numberOfUGVPatrols do
 {
 	GMSAI_UGVPatrols pushBack [GMSAI_BlacklistedLocations,grpNull,objNull,lastSpawned,0,-1,GMSAI_UGVrespawnTime,GMSAI_UGVPatrolRespawns,GMSAI_UGVdifficulty,GMSAI_UGVtypes];  
 };
-[format[" Initialized UGV Patrols at %1",diag_tickTime]] call GMSAI_fnc_log;
+
+if (GMSAI_debug > 0) then {[format[" Initialized UGV Patrols at %1",diag_tickTime]] call GMSAI_fnc_log};

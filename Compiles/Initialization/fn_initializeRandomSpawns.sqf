@@ -17,7 +17,7 @@
 //diag_log format["[GMSAI] initialized %1 RandomSpawnLocations",GMSAI_StaticSpawnsRandom];
 if (GMSAI_StaticSpawnsRandom <= 0) exitWith 
 {
-	[" Random Static Spawns disabled"] call GMSAI_fnc_log;
+	if (GMSAI_debug > 0) then {[" Random Static Spawns disabled"] call GMSAI_fnc_log};
 };
 params[["_locations",[]]];
 for "_i" from 1 to GMSAI_StaticSpawnsRandom do

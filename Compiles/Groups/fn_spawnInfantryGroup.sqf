@@ -72,7 +72,7 @@ _group setVariable[GMSAI_groupDifficulty,_difficulty];
 
 [_group,GMSAI_skillbyDifficultyLevel select _difficulty] call GMSCore_fnc_setupGroupSkills;  // TODO: revisit this once a system for skills is determined - simpler the better
 [_group, GMSAI_unitLoadouts select _difficulty, GMSAI_LaunchersPerGroup, GMSAI_useNVG] call GMSCore_fnc_setupGroupGear;
-[_group,_difficulty,GMSAI_money] call GMSCore_fnc_setupGroupMoney;
+[_group,_difficulty,GMSAI_money select _difficulty] call GMSCore_fnc_setupGroupMoney;
 //_group call GMSAI_fnc_addEventHandlers;
 
 #define waypointTimeoutInfantryPatrols 180

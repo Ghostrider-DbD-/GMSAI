@@ -320,5 +320,6 @@ _binoculars = ["Binocular","Rangefinder","Laserdesignator_02"];
 /*
 	please do not touch below this line 
 */
-
-[format["<END> GMSAI_unitLoadoutDefault.sqf at %1",diag_tickTime]] call GMSAI_fnc_log;
+if (GMSAI_debug > 0) then {
+	[format["<END> GMSAI_unitLoadoutDefault.sqf at %1",diag_tickTime]] call GMSAI_fnc_log;
+};

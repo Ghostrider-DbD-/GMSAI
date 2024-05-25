@@ -71,8 +71,7 @@ private _debugMarkers = [];
 					_markerDelete,
 					true // no reason to spawnOnRoads for these patrols
 				] call GMSAI_fnc_spawnVehiclePatrol;
-				_group = _t select 0;	
-				GMSAI_vehicleGroups pushBack _group;		
+				_group = _t select 0;		
 			};
 			case GMSAI_ugv: {
 				//diag_log format["spawnPatrolTypes: case UGV"];
@@ -88,7 +87,6 @@ private _debugMarkers = [];
 					true  // force spawning on roads
 				] call GMSAI_fnc_spawnUGVPatrol;
 				_group = _t select 0;
-				GMSAI_UGVGroups pushBack _group;
 				[format["GMSAI_fnc_spawnPatrolTypes: spawned UGV patrol with group %1 | count GMSAI_UGVGroups %2",_group, GMSAI_UGVGroups]] call GMSAI_fnc_log;
 			};
 			case GMSAI_uav: {
@@ -103,8 +101,7 @@ private _debugMarkers = [];
 					300,
 					_markerDelete  // always use false: we will delete the marker(s) separately for these more complex patrols
 				] call GMSAI_fnc_spawnUAVPatrol;
-				_group = _t select 0;
-				GMSAI_UAVGroups pushBack _group;			
+				_group = _t select 0;			
 			};
 			case GMSAI_air: {
 				//diag_log format["spawnPatrolTypes: case AIR: _difficulty = %1",_difficulty];
@@ -120,8 +117,7 @@ private _debugMarkers = [];
 					300,
 					_markerDelete  // always use false: we will delete the marker(s) separately for these more complex patrols
 				] call GMSAI_fnc_spawnAircraftPatrol;
-				_group = _t select 0;
-				GMSAI_AirPatrolGroups pushBack _group;			
+				_group = _t select 0;			
 			};
 		};
 		//[format["_fnc_spawnPatrolTypes: _group spawned = %1",_group]] call GMSAI_fnc_log;

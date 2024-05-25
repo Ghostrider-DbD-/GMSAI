@@ -17,8 +17,11 @@
 
 #include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 params["_group","_aircraft","_isUAV"];
-//[format["spawnParatroops: _group %1 | _aircraft %2 | _isUAV %3 | time %4",_group,_aircraft,_isUAV,diag_tickTime]] call GMSAI_fnc_log;
+[format["spawnParatroops: _group %1 | _aircraft %2 | _isUAV %3 | time %4",_group,_aircraft,_isUAV,diag_tickTime]] call GMSAI_fnc_log;
 // Basic conditions for spawns must be met
+
+
+
 if (count GMSAI_paratroopGroups >= GMSAI_maxParagroups) exitWith {["spawnParatroops: maximum number of active reinforments reached"] call GMSAI_fnc_log};
 
 private _respawnAt = _group getVariable [GMSAI_paratroopNextDropTime,-1];
@@ -35,7 +38,7 @@ if (diag_tickTime < _respawnAt) exitWith {/* [format["spawnParatroops: group %1 
 if (random(1) >= GMSAI_chanceParatroops) exitWith { /*[format["spawnParatroops: group %1 failed chance of reinforcements check at %2 with no reinforcement = %3",_group, diag_tickTime, GMSAI_paratroopGroups]] call GMSAI_fnc_log */};
 
 private _target = [_group] call GMSCore_fnc_getHunt;
-if (isNull _target) then {_target = [_group,2000,0.1] call GMSCore_fnc_nearestTarget};
+if (isNull _target) then {_target = [_group,300, 0.1] call GMSCore_fnc_nearestTarget};
 
 if (isNull _target) exitWith { /*[format["spawnParatroops: no target found for reinforcements to attack for group %1",_group]] call GMSAI_fnc_log */};
 

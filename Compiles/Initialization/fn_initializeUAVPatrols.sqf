@@ -27,6 +27,7 @@ for "_i" from 1 to GMSAI_numberOfUAVPatrols do
 {
 	GMSAI_UAVPatrols pushBack [GMSAI_BlacklistedLocations,grpNull,objNull,lastSpawned,0,-1,GMSAI_UAVRespawnTime,gmsai_uavPatrolResapwns,GMSAI_UAVDifficulty,GMSAI_UAVTypes];  //  set respawnat to 80 so that the server has a chance to load up before spawning UAV
 };
-[format[" Initialized UAV Patrols at %1",diag_tickTime]] call GMSAI_fnc_log;
+
+if (GMSAI_debug > 0) then {[format[" Initialized UAV Patrols at %1",diag_tickTime]] call GMSAI_fnc_log};
 
 

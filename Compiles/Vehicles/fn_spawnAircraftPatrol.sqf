@@ -9,8 +9,6 @@
 		_patrolArea - can be "Map" or "Region". "Region will respect the boundaries of a map marker while Map will patrol the entire map. 
 		_blackListed - areas to avoid formated as [[x,y,z],radius]
 		_center, center of the area, either mapCenter of center of the patrol area 
-		_size, size of the area to be patroled, either mapSize or dimension of the patrol area 
-		_shape, shap of the patrol area (rectangle by default)
 		_timeout - how long to wait before deciding the chopper is 'stuck'
 
 	Returns: [
@@ -36,50 +34,55 @@ params[
 		["_markerDelete",false]
 	];	
 
-//private _difficulty = selectRandomWeighted GMSAI_aircraftPatrolDifficulty;
-
-private _crewCount = (GMSAI_aircraftGunners + 2) min ([_className,false]  call BIS_fnc_crewCount);
+private _group = grpNull;
 private _aircraft = objNull;
-private _group = [
-	_pos,
-	_crewCount,
-	GMSCore_side,
-	GMSAI_baseSkill,
-	GMSA_alertDistanceByDifficulty select _difficulty,
-	GMSAI_intelligencebyDifficulty select _difficulty,
-	GMSAI_bodyDeleteTimer,
-	GMSAI_maxReloadsInfantry,
-	GMSAI_launcherCleanup,
-	GMSAI_removeNVG,
-	GMSAI_minDamageForSelfHeal,
-	GMSAI_maxHeals,
-	GMSAI_unitSmokeShell,
-	[GMSAI_fnc_unitHit],
-	[GMSAI_fnc_unitKilled],
-	GMSAI_chanceToGarisonBuilding
-] call GMSCore_fnc_spawnInfantryGroup;
-if !(isNull _group) then 
-{
+
+try {
+	if !(isClass(configFile >> "CfgVehicles" >> _className)) throw -3; 
+
+	private _crewCount = (GMSAI_aircraftGunners + 2) min ([_className,false]  call BIS_fnc_crewCount);
+
+	 _group = [
+		_pos,
+		_crewCount,
+		GMSCore_side,
+		GMSAI_baseSkill,
+		GMSA_alertDistanceByDifficulty select _difficulty,
+		GMSAI_intelligencebyDifficulty select _difficulty,
+		GMSAI_bodyDeleteTimer,
+		GMSAI_maxReloadsInfantry,
+		GMSAI_launcherCleanup,
+		GMSAI_removeNVG,
+		GMSAI_minDamageForSelfHeal,
+		GMSAI_maxHeals,
+		GMSAI_unitSmokeShell,
+		[GMSAI_fnc_unitHit],
+		[GMSAI_fnc_unitKilled],
+		GMSAI_chanceToGarisonBuilding
+	] call GMSCore_fnc_spawnInfantryGroup;
+	//[format["_spawnAircraftPatrol: GMSCore_fnc_spawnInfantryGroup returned _group %1",_group]] call GMSAI_fnc_log;
+	if (isNull _group) throw -2;
+
 	[_group,GMSAI_unitDifficulty select (_difficulty)] call GMSCore_fnc_setupGroupSkills;
 	[_group, GMSAI_unitLoadouts select _difficulty, 0 /* launchers per group */, GMSAI_useNVG] call GMSCore_fnc_setupGroupGear;
-	[_group,_difficulty,GMSAI_money] call GMSCore_fnc_setupGroupMoney;
-/*
-params[
-	["_className",""],	
-	["_group",grpNull],
-	["_pos",[0,0,0]],
-	["_dir",0],
-	["_height",0],	
-	["_disable",0],  // a value greater than 0 will increase damage of the object to that level; set to 1.0 to disable turretes, 0.7 to neutralize vehciles
-	["_removeFuel",false],  // when true fuel is removed from the vehicle
-	["_releaseToPlayers",true],
-	["_deleteTimer",300],
-	["_vehHitCode",[]],
-	["_vehKilledCode",[]]
-];
-*/
-	//[format["_spawnAircraftPatrol: GMSAI_fnc_aircraftHit = %1",GMSAI_fnc_aircraftHit]] call GMSAI_fnc_log;
-	 _aircraft = [
+	[_group,_difficulty,GMSAI_money select _difficulty] call GMSCore_fnc_setupGroupMoney;
+	/*
+	params[
+		["_className",""],	
+		["_group",grpNull],
+		["_pos",[0,0,0]],
+		["_dir",0],
+		["_height",0],	
+		["_disable",0],  // a value greater than 0 will increase damage of the object to that level; set to 1.0 to disable turretes, 0.7 to neutralize vehciles
+		["_removeFuel",false],  // when true fuel is removed from the vehicle
+		["_releaseToPlayers",true],
+		["_deleteTimer",300],
+		["_vehHitCode",[]],
+		["_vehKilledCode",[]]
+	];
+	*/
+
+	_aircraft = [
 		_classname,
 		_group,
 		_pos,
@@ -92,29 +95,43 @@ params[
 		[GMSAI_fnc_aircraftHit],
 		[GMSAI_fnc_vehicleKilled]
 	] call GMSCore_fnc_spawnPatrolAircraft;
+	//[format["_spawnAircraftPatrol: GMSCore_fnc_spawnPatrolAircraft returned _aircraft %1",_aircraft]] call GMSAI_fnc_log;
+	if (isNull _aircraft) throw -1;
 
-	diag_log format["GMSAI_fnc_spawnAircraftPatrol: _patrolArea = %1",_patrolArea];
+	[
+		_group,
+		_blacklisted,
+		_patrolArea,
+		_timeout,
+		GMSAI_chanceToGarisonBuilding,
+		"air",
+		_markerDelete
+	] call GMSCore_fnc_initializeWaypointsAreaPatrol;
+	
+	[_aircraft,GMSAI_forbidenWeapons,GMSAI_forbidenMagazines] call GMSCore_fnc_disableVehicleWeapons;
+	[_aircraft,GMSAI_disabledSensors] call GMSCore_fnc_disableVehicleSensors;
+	if (GMSAI_disableInfrared) then {_heli disableTIEquipment true};
+	_group addVehicle _aircraft;
+	[_group, GMSAI_BlacklistedLocations] call GMSCore_fnc_setGroupBlacklist;	
+}
 
-	if !(isNull _aircraft) then 
-	{
-		[
-			_group,
-			_blacklisted,
-			_patrolArea,
-			_timeout,
-			GMSAI_chanceToGarisonBuilding,
-			"air",
-			_markerDelete
-		] call GMSCore_fnc_initializeWaypointsAreaPatrol;
-		[_aircraft,GMSAI_forbidenWeapons,GMSAI_forbidenMagazines] call GMSCore_fnc_disableVehicleWeapons;
-		[_aircraft,GMSAI_disabledSensors] call GMSCore_fnc_disableVehicleSensors;
-		if (GMSAI_disableInfrared) then {_heli disableTIEquipment true};
-		_group addVehicle _aircraft;
-	} else {
-		[_group] call GMSCore_fnc_despawnInfantryGroup;
-		_group = grpNull;
+catch {
+	switch (_exception) do {
+		case -3: {
+			[format["_spawnAircraftPatrol: invalid classname %1 passed",_className],'warning'] call GMSAI_fnc_log;
+		};
+
+		case -2: {
+			[format["_spawnAircraftPatrol: GMSCore_fnc_spawnInfantryGroup returned grpNull"],'warning'] call GMSAI_fnc_log;
+		};
+
+		case -1: {
+			[format["_spawnAircraftPatrol:  GMSCore_fnc_spawnPatrolAircraft return objNull"],'warning'] call GMSAI_fnc_log;
+			[_group] call GMSCore_fnc_despawnInfantryGroup;
+			_group = grpNull;			
+		};
 	};
 };
-[_group, GMSAI_BlacklistedLocations] call GMSCore_fnc_setGroupBlacklist;
+//[format["_spawnAircraftPatrol:  returning _group %1 | _aircraft %2 | typeOf _aircraft %3",_group, _aircraft, typeOf _aircraft],''] call GMSAI_fnc_log;
 [_group,_aircraft]
 

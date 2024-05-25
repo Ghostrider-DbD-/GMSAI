@@ -78,7 +78,7 @@ private _crewGroup = [
 //diag_log format["GMSAI_fnc_flyInReinforcements: _crewGroup = %1",_crewGroup];
 [_crewGroup,GMSAI_unitDifficulty select (_difficulty)] call GMSCore_fnc_setupGroupSkills;
 [_crewGroup, GMSAI_unitLoadouts select _difficulty, 0 /* launchers per group */, GMSAI_useNVG] call GMSCore_fnc_setupGroupGear;
-[_crewGroup,_difficulty,GMSAI_money] call GMSCore_fnc_setupGroupMoney;
+[_crewGroup,_difficulty,GMSAI_money select _difficulty] call GMSCore_fnc_setupGroupMoney;
 
 private _heli = [
 	_aircraftType,
