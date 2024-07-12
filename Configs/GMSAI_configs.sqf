@@ -254,7 +254,7 @@ GMSAI_BlacklistedLocations = [
 	[[13471.9,12018.5,0],400,250,0,true],  // Player Spawns on Island
 	[[15139,14299,0],300,300,0,true]
 	*/
-	[[166733, 13604, 0], 200, 0200, 0]  // Chelonosi on Altis which does bad things to roaming vehicles
+	[[166733, 13604, 0], 200, 0200, 0, true]  // Chelonosi on Altis which does bad things to roaming vehicles
 ];
 
 /* 
