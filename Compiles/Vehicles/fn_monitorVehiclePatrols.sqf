@@ -83,6 +83,7 @@ for "_i" from 1 to (count GMSAI_vehiclePatrols) do {
 				private _lastTime = _crewGroup getVariable["lastTime",0];
 				private _spawnedAt = _crewGroup getVariable["spawnedAt",0];
 				if (_spawnedAt == 0) then {_crewGroup setVariable["spawnedAt", diag_tickTime]};
+				/*
 				if (diag_tickTime - _lastTime > 30) then {
 					diag_log format["monitorVehiclePatrols: _vehicle %1 typeOf %2 has moved %3 in %4 sec",_vehicle, typeOf _vehicle, _vehicle distance _lastPos, diag_tickTime - _lastTime];
 					diag_log format["monitorVehiclePatrols: _vehicle %1 typeOf %2 alive for %3 fuel %4 damage %5", _vehicle, typeOf _vehicle, diag_tickTime - _spawnedAt, fuel _vehicle, damage _vehicle];
@@ -90,6 +91,7 @@ for "_i" from 1 to (count GMSAI_vehiclePatrols) do {
 					_crewGroup setVariable["lastTime",diag_tickTime];					
 					if (_vehicle distance _lastPos < 100) then {(leader _crewGroup) call GMSCore_fnc_nextWaypointAreaPatrol};
 				};
+				*/
 				GMSAI_vehiclePatrols pushBack _vehiclePatrol;
 			};
 			case 2: {  // Test if it is time to spawn a new Vehicle  

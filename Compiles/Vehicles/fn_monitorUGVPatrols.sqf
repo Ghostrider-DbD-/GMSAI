@@ -88,7 +88,8 @@ for "_i" from 1 to (count GMSAI_UGVPatrols) do
 				private _lastPos = _crewGroup getVariable["lastPosition",[0,0]];
 				private _lastTime = _crewGroup getVariable["lastTime",0];
 				private _spawnedAt = _crewGroup getVariable["spawnedAt",0];
-				if (_spawnedAt == 0) then {_crewGroup setVariable["spawnedAt", diag_tickTime]};				
+				if (_spawnedAt == 0) then {_crewGroup setVariable["spawnedAt", diag_tickTime]};			
+				/*	
 				if (diag_tickTime - _lastTime > 30) then {
 					diag_log format["monitoUGVPatrols: _UGV %1 typeOf %2 has moved %3 in %4 sec",_UGV, typeOf _UGV, _UGV distance _lastPos, diag_tickTime - _lastTime];
 					diag_log format["monitorUGVPatrols: _UGV %1 typeOf %2 alive for %3 fuel %4 damage %5", _UGV, typeOf _UGV, diag_tickTime - _spawnedAt, fuel _UGV, damage _UGV];
@@ -96,6 +97,7 @@ for "_i" from 1 to (count GMSAI_UGVPatrols) do
 					_crewGroup setVariable["lastTime",diag_tickTime];					
 					if (_UGV distance _lastPos < 100) then {(leader _crewGroup) call GMSCore_fnc_nextWaypointAreaPatrol};
 				};									
+				*/
 				GMSAI_UGVPatrols pushBack _UGVPatrol;
 			};
 			case 2: {  // Test if it is time to spawn a new UGV

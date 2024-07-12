@@ -91,6 +91,12 @@ switch (_modType) do
 	case "default": {
 		GMSAI_rewardsNotifications = ["dynamicText"];
 		GMSAI_killstreakTimeout = 300; // 5 min
+		// expressed as [][tabs min, tabs max],[respect min,respect max]]
+		GMSAI_rewardsBlue = [[5,10],[8,12]];
+		GMSAI_rewardsRed = [[8,14],12,15];
+		GMSAI_rewardsGreen = [[10,18],[15,20]];
+		GMSAI_rewardsOrange = [[12,20],20,25];
+		GMSAI_rewards = [GMSAI_rewardsBlue,GMSAI_rewardsRed,GMSAI_rewardsGreen,GMSAI_rewardsOrange];		
 	};
 };
 
@@ -105,10 +111,10 @@ GMSAI_CustomLocations = [
 		[[17439.6,13162.5,0.00155449],250,250,0,true],
 		[2,4],
 		[GMSAI_difficultyBlue,0.75,GMSAI_difficultyRed,0.25,GMSAI_difficultyGreen,0.50,GMSAI_difficultyOrange,0.01],		// difficulty 
-		0.75,  // CHance 
+		1.0,  //0.75,  // CHance 
 		-1,  // Respawns 
-		[400,600], // respawn Timer 
-		120,  // despawn timer 
+		[30, 60], //[400,600], // respawn Timer 
+		30, //120,  // despawn timer 
 		[
 			//[GMSAI_ugv,[1],[]],	  // if you want to specify which UGV to spawn add the classNames in a weighted array 
 			//[GMSAI_uav,[1],[]],   // if you want to specify which UAV to spawn add the classNames in a weighted array 
@@ -136,10 +142,10 @@ GMSAI_CustomLocations = [
 		[[12609.4,16417.7,0.0014534],250,250,0,true],
 		[2,3],
 		[GMSAI_difficultyBlue,0.75,GMSAI_difficultyRed,0.25,GMSAI_difficultyGreen,0.50,GMSAI_difficultyOrange,0.01],		// difficulty 
-		0.50,  // CHance 
+		1.0,  //0.50,  // CHance 
 		-1,  // Respawns 
-		[450,600], // respawn Timer 
-		120,  // despawn timer 
+		[30, 60],  //[450,600], // respawn Timer 
+		30,  //120,  // despawn timer 
 		[
 			//[GMSAI_ugv,[1],[]],	  // if you want to specify which UGV to spawn add the classNames in a weighted array 
 			//[GMSAI_uav,[1],[]],   // if you want to specify which UAV to spawn add the classNames in a weighted array 
@@ -233,6 +239,8 @@ GMSAI_BlacklistedLocations = [
 	// These can include location names, markers or arrays formated as [center, a, b, angle, isRectangle]  
 	// Some examples are listed below
 	// Positions for Exile.Altis Mil server 
+
+	/*
 	[[11633,11950,0],500,500,0,true],  // TraderCity_SW_Airfield
 	[[14645,16771,0],500,500,0,true], // Trader 
 	[[20824,7255,0],500,500,0,true],  // Trader 
@@ -245,6 +253,8 @@ GMSAI_BlacklistedLocations = [
 	[[15137.2,17297.8,0],400,200,0,true],  // south end main airport - location of the virtual hangers
 	[[13471.9,12018.5,0],400,250,0,true],  // Player Spawns on Island
 	[[15139,14299,0],300,300,0,true]
+	*/
+	[[166733, 13604, 0], 200, 0200, 0]  // Chelonosi on Altis which does bad things to roaming vehicles
 ];
 
 /* 
@@ -507,7 +517,7 @@ GMSAI_paratroopAircraftTypes = [  // Note: this is a weighted array of vehicles 
 	Aircraft Patrol Spawn Configs
 *********************************/
 // TODO: aircraft could be spread out more on the map.
-GMSAI_numberOfAircraftPatrols = 3;
+GMSAI_numberOfAircraftPatrols = 1;
 GMSAI_aircraftPatrolDifficulty =  [GMSAI_difficultyBlue,0.90,GMSAI_difficultyRed,0.10];
 GMSAI_aircraftRespawnTime = 600;  //[600,900];  //  Min, Max respawn time
 GMSAI_aircraftDesapwnTime = 120;
@@ -542,7 +552,7 @@ GMSAI_aircraftTypes = [
 	//"B_Heli_Transport_03_unarmed_F",5
 ];
 
-GMSAI_numberOfUAVPatrols = 3;
+GMSAI_numberOfUAVPatrols = 1;
 GMSAI_UAVTypes = [  //  note that faction may matter here.
 	// East 
 	"O_UAV_01_F",2,  // Darter equivalent, unarmed
@@ -558,7 +568,7 @@ GMSAI_UAVPatrolresapwns = -1;
 GMSAI_UAVrespawntime = 300;
 //GMSAI_UAVdespawnTime = 120;
 
-GMSAI_numberOfUGVPatrols = 10;
+GMSAI_numberOfUGVPatrols = 1;
 GMSAI_UGVtypes = [  // 
 	// Stompers
 	"O_UGV_01_rcws_F",5 // east - Use for Exile  
@@ -570,7 +580,7 @@ GMSAI_UGVrespawnTime = [600,900];  // Min, Max
 GMSAI_UGVdespawnTime = 120;
 GMSAI_UGVPatrolRespawns = -1; 
 
-GMSAI_noVehiclePatrols = 20;
+GMSAI_noVehiclePatrols = 1;
 GMSAI_patroVehicleCrewCount = [3,5];
 GMSAI_vehiclePatroDifficulty = [GMSAI_difficultyBlue,0.60,GMSAI_difficultyRed,0.40,GMSAI_difficultyGreen,0.05,GMSAI_difficultyOrange,0.05];
 GMSAI_vehiclePatrolDeleteTime = 300;  //  Must be an INTEGER, not an array.
@@ -695,9 +705,9 @@ GMSAI_patrolTypesToNotifyLastUnit = ["Air","Car","Tank","StaticWeaon","Ship","Ma
 	7.Respect/reputation (coming soon) is removed according to the value in GMSAI_runoverRespectPenalty
 */
 
-GMSAI_bodyDeleteTimer = 600;
+GMSAI_bodyDeleteTimer =10 * 60;
 
-GMSAI_useDynamicSpawns = true;
+GMSAI_useDynamicSpawns = false;
 GMSAI_maxLoiterTime = 900;  // 300 - time before a player is considered camping out.
 GMSAI_maxActiveDynamicSpawns = 10;  // Max players that have a dynamic spawn targeting them.
 GMSAI_maximumDynamicRespawns = -1;  //  Set to 0 to spawn only once. Set to -1 to have infinite respawns (default).
@@ -714,12 +724,12 @@ GMSAI_chanceToGarisonBuilding = 0.330;  // determines the chance that units will
 GMSAI_staticRespawns = -1;  //  Set to -1 to have infinite respawns (default). 
 GMSAI_staticRespawnTime = 600;
 GMSAI_staticDespawnTime = 120;
-GMSAI_staticTriggerTime = 180;  //  How long you have to spend in a sector / area to trigger them
+GMSAI_staticTriggerTime = 30;  //180;  //  How long you have to spend in a sector / area to trigger them
 
 /*
 	SETTINGS FOR VILLAGES 
 */
-GMSAI_staticVillageGroups = true;  			//  false to disable
+GMSAI_staticVillageGroups = false;  			//  false to disable
 GMSAI_staticVillageUnitsPerGroup = [2,4];  	// This can be an integer or array [min, max] and only applies to infantry
 GMSAI_staticVillagePatrolTypes = [
 	[GMSAI_vehicle,[1],[
@@ -743,7 +753,7 @@ GMSAI_ChanceStaticVillageGroups = 0.80;
 /*
 	SETTINGS FOR CITIES
 */
-GMSAI_staticCityGroups = true;  //  false to disable
+GMSAI_staticCityGroups = false;  //  false to disable
 GMSAI_staticCityUnitsPerGroup = [2,4];
 GMSAI_staticCityPatrolTypes = [  //  for patrols beyond infantry
 	[GMSAI_vehicle,[1,2],[
@@ -774,7 +784,7 @@ GMSAI_ChanceStaticCityGroups = 0.90;
 /*
 	SETTINGS FOR CAPITAL CITIES
 */
-GMSAI_staticCapitalGroups = true;  //  false to disable
+GMSAI_staticCapitalGroups = false;  //  false to disable
 GMSAI_staticCapitalUnitsPerGroup = [3,4];
 GMSAI_staticCapitalPatrolTypes = [  //  for patrols beyond infantry
 	[GMSAI_vehicle,[1,3],[
@@ -862,4 +872,6 @@ GMSAI_staticRandomPatrolTypes = [  //  for patrols beyond infantry
 GMSAI_staticRandomUnitsDifficulty = [GMSAI_difficultyBlue,0.75,GMSAI_difficultyRed,0.25,GMSAI_difficultyGreen,0.50,GMSAI_difficultyOrange,0.01];
 GMSAI_staticRandomChance = 0.999;
 
-[format["Configuration and Settings Loaded at %1",diag_tickTime]] call GMSAI_fnc_log;
+if (GMSAI_debug > 0) then {
+	[format["Configuration and Settings Loaded at %1",diag_tickTime]] call GMSAI_fnc_log;
+};
