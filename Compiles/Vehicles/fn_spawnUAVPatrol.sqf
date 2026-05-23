@@ -4,15 +4,15 @@
 	Purpose: spawn a UAV patrol that will go from location to location on the map hunting for players 
 
 	Parameters: 
-	Parameters: 
+		_difficulty
+		_className 
 		_pos, position to spawn chopper 
 		_patrolArea - can be "Map" or "Region". "Region will respect the boundaries of a map marker while Map will patrol the entire map. 
-		_blackListed - areas to avoid formated as [[x,y,z],radius]
-		_timeout - how long to wait before deciding the chopper is 'stuck'
+		_markerDelete 
 
 	Returns: [
 		_group, the group spawned to man the heli 
-		_uav, the UAV spawned selected by selectRandomWeighted GMSAI_aircraftTypes,  
+		_aircraft, the UAV spawned selected by selectRandomWeighted GMSAI_aircraftTypes,  
 	]
 
 	Copywrite 2020 by Ghostrider-GRG-
@@ -20,7 +20,7 @@
 	Notes: 
 */
 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp"  
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp"  
 
 params[
 		"_difficulty",
@@ -28,70 +28,43 @@ params[
 		"_pos",					// Random position for patrols that roam the whole map 
 								// or center of the area to be patrolled for those that are restricted to a smaller region
 		["_patrolArea","Map"],  // "Map" will direct the chopper to patrol the entire map, "Region", a smaller portion of the map.
-		["_blackListed",[]],  	// areas to avoid within the patrol region
-		["_timeout",GMSAI_waypointTimeout],  		// The time that must elapse before the antistuck function takes over.]];
 		["_markerDelete",false]
 ];
 
-private _uav = objNull;
+private _aircraft = objNull;
 private _group = grpNull; 
+
 try {
 	if !(isClass(configFile >> "CfgVehicles" >> _className)) throw -3;
-	private _crewCount = [_className,false]  call BIS_fnc_crewCount;
-	
-	_group = [
-		_pos,
-		_crewCount,
-		GMSCore_side,
-		GMSAI_baseSkill,
-		GMSA_alertDistanceByDifficulty select _difficulty,
-		GMSAI_intelligencebyDifficulty select _difficulty,
-		GMSAI_bodyDeleteTimer,
-		GMSAI_maxReloadsInfantry,
-		GMSAI_launcherCleanup,
-		GMSAI_removeNVG,
-		GMSAI_minDamageForSelfHeal,
-		GMSAI_maxHeals,
-		GMSAI_unitSmokeShell,
-		[GMSAI_fnc_unitHit],
-		[GMSAI_fnc_unitKilled],
-		GMSAI_chanceToGarisonBuilding
-	] call GMSCore_fnc_spawnInfantryGroup;
 
-	if (isNull _group) throw -2;	
-
-	[_group,GMSAI_unitDifficulty select (_difficulty)] call GMSCore_fnc_setupGroupSkills;
-	[_group, GMSAI_unitLoadouts select _difficulty, 0 /* launchers per group */, GMSAI_useNVG] call GMSCore_fnc_setupGroupGear;
-	//[_group,_difficulty,GMSAI_money] call GMSCore_fnc_setupGroupMoney;
-	_uav = [
+	private _patrol = [
 		_className,
-		_group,	
-		_pos, 
-		0, 			// dir
-		300,		// height
-		0,			// disable 
+		_pos, 		
+		_patrolArea,
+		_markerDelete,	
+		0.5,			// disable 
 		GMSA_removeFuel,		// remove fuel
 		GMSAI_releaseVehiclesToPlayers,
-		GMSAI_vehicleDeleteTimer,
-		[GMSAI_fnc_vehicleHit],
-		[GMSAI_fnc_vehicleKilled]	
+		GMSAI_vehicleDeleteTimer	
 	] call GMSCore_fnc_spawnPatrolUAV;	
 
-	if (isNull _uav) throw -1;
+	_group = _patrol select 0;
+	_aircraft = _patrol select 1;
+
+	if (isNull _group) throw -2;
+	if (isNull _aircraft) throw -1;
+
 	
-	[
-		_group,
-		_blacklisted,
-		_patrolArea,
-		_timeout,
-		GMSAI_chanceToGarisonBuilding,
-		"air",
-		_markerDelete
-	] call GMSCore_fnc_initializeWaypointsAreaPatrol;
-	[_uav,GMSAI_forbidenWeapons,GMSAI_forbidenMagazines] call GMSCore_fnc_disableVehicleWeapons;
-	[_uav,GMSAI_disabledSensors] call GMSCore_fnc_disableVehicleSensors;
-	if (GMSAI_disableInfrared) then {_uav disableTIEquipment true};	
-	[_group, GMSAI_BlacklistedLocations] call GMSCore_fnc_setGroupBlacklist;	
+	[_group,GMSAI_unitDifficulty select (_difficulty)] call GMSCore_fnc_setupGroupSkills;
+	[_group, GMSAI_unitLoadouts select _difficulty, 0 /* launchers per group */, GMSAI_useNVG] call GMSCore_fnc_setupGroupGear;
+	[_group,_difficulty,GMSAI_money select _difficulty] call GMSCore_fnc_setupGroupMoney;
+		
+	[_aircraft,GMSAI_forbidenWeapons,GMSAI_forbidenMagazines] call GMSCore_fnc_disableVehicleWeapons;
+	[_aircraft,GMSAI_disabledSensors] call GMSCore_fnc_disableVehicleSensors;
+	if (GMSAI_disableInfrared) then {_heli disableTIEquipment true};
+	[_group, GMSAI_chanceParatroops] call GMSCore_fnc_setChanceParaDrop; 
+	[_group, GMSAI_chancePlayerDetected] call GMSCore_fnc_setChanceDetectedAir; 
+	[_group, GMSAI_paratroopCooldownTimer] call GMSCore_fnc_setParaInterval;
 }
 
 catch 
@@ -102,7 +75,7 @@ catch
 		};
 
 		case -2: {
-			[format["_spawnUAVPatrol: GMSCore_fnc_spawnInfantryGroup returned grpNull"],'warning'] call GMSAI_fnc_log;
+			[format["_spawnUAVPatrol: grpNull"],'warning'] call GMSAI_fnc_log;
 		};
 
 		case -1: {
@@ -112,5 +85,5 @@ catch
 		};
 	};
 }; 
-//[format["_spawnUAVPatrol:  GMSCore_fnc_spawnPatrolUAV returning _group %1 | _uav %2",_group, _uav]] call GMSAI_fnc_log;
-[_group,_uav]
+//[format["_spawnUAVPatrol:  GMSCore_fnc_spawnPatrolUAV returning _group %1 | _aircraft %2",_group, _aircraft]] call GMSAI_fnc_log;
+[_group,_aircraft]

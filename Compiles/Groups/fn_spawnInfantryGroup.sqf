@@ -17,7 +17,7 @@
 	Notes: 
 */
 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 
 params[
 		["_difficulty",GMSAI_difficultyRed],
@@ -27,30 +27,10 @@ params[
 		["_deleteMarker",true]  // when true the marker that defines borders of the patrol area will be deleted when the group is Null
 	];
 
-/*
-
-params[
-		"_pos",  // center of the area in which to spawn units
-		"_units",  // Number of units to spawn
-		["_side",GMSCore_side],
-		["_baseSkill",0.7],
-		["_alertDistance",500], 	 // How far GMS will search from the group leader for enemies to alert to the kiillers location
-		["_intelligence",0.5],  	// how much to bump knowsAbout after something happens
-		["_bodycleanuptimer",600],  // How long to wait before deleting corpses for that group
-		["_maxReloads",-1], 			// How many times the units in the group can reload. If set to -1, infinite reloads are available.
-		["_removeLaunchers",true],
-		["_removeNVG",true],
-		["_minDamageToHeal",0.4],
-		["_maxHeals",1],
-		["_smokeShell",""]
-	];
-
-*/
-
-//diag_log format["GMSAI_fnc_spawnInfantryGroup: GMSAI_side = %1",GMSAI_side];
-
 private _group = [
 		_spawnPos,
+		_patrolMarker,
+		_deleteMarker, 		
 		[_units] call GMSCore_fnc_getIntegerFromRange,
 		GMSAI_side,
 		GMSAI_baseSkill,
@@ -70,26 +50,11 @@ private _group = [
 
 _group setVariable[GMSAI_groupDifficulty,_difficulty];
 
-[_group,GMSAI_skillbyDifficultyLevel select _difficulty] call GMSCore_fnc_setupGroupSkills;  // TODO: revisit this once a system for skills is determined - simpler the better
+[_group,GMSAI_skillbyDifficultyLevel select _difficulty] call GMSCore_fnc_setupGroupSkills; 
 [_group, GMSAI_unitLoadouts select _difficulty, GMSAI_LaunchersPerGroup, GMSAI_useNVG] call GMSCore_fnc_setupGroupGear;
 [_group,_difficulty,GMSAI_money select _difficulty] call GMSCore_fnc_setupGroupMoney;
 //_group call GMSAI_fnc_addEventHandlers;
 
-#define waypointTimeoutInfantryPatrols 180
-
-if !(_patrolMarker isEqualTo "") then // setup waypoints using the information stored in the marker 
-{
-
-	[
-		_group,
-		GMSAI_BlacklistedLocations,
-		_patrolMarker,
-		waypointTimeoutInfantryPatrols,
-		GMSAI_chanceToGarisonBuilding,
-		"infantry",
-		_deletemarker
-	] call GMSCore_fnc_initializeWaypointsAreaPatrol;
-};
 [_group,GMSAI_fnc_unitKilled] call GMSCore_fnc_addChainedMPKilled;
-[_group, GMSAI_BlacklistedLocations] call GMSCore_fnc_setGroupBlacklist;
+
 _group

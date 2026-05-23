@@ -1,0 +1,9 @@
+Update calls when spawning Air and UAV patrols to match new requirements of GMSCore 1.11 
+    Done as of 11/7/25 in Verson 1.1
+
+Reworking the blacklist / safezone / no agro zone system 
+    Will need to tell GMSCore what safezones there are
+    and whether to delete AI that wander into them 
+
+Because of the rewrite of the waypoint system for patrols, a lot of variables that were passed are no longer needed
+    Will remove these from the calls as I go through each patrol type.

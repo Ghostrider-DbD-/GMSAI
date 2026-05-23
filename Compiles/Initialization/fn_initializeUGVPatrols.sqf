@@ -10,18 +10,22 @@
 	Copyright 2020 Ghostrider-GRG-
 
 	Notes: 
-		TODO: think about area-based functions for UGVs
+
 */
 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+
+if (GMSAI_UGVtypes isEqualTo []) exitWith 
+{
+	GMSAI_numberOfUGVPatrols = 0;
+	["GMSAI_UGVtypes isEqualTo [] - UGV Patrols Disabled"] call GMSAI_fnc_log;
+};
+
 if (GMSAI_numberOfUGVPatrols <= 0) exitWith 
 {
 	if (GMSAI_debug > 0) then {[" GMSAI_numberOfUGVPatrols <= 0 - UGV Patrols disabled"] call GMSAI_fnc_log};
 };
-if (GMSAI_UGVtypes isEqualTo []) exitWith 
-{
-	["GMSAI_UGVtypes isEqualTo [] - UGV Patrols Disabled"]
-};
+
 #define lastSpawned -1 
 for "_i" from 1 to GMSAI_numberOfUGVPatrols do
 {

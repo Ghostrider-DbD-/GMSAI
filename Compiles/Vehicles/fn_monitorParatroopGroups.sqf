@@ -11,7 +11,7 @@
 	Notes: All hunting logic is handled by GMS using an area patrol.
 */
 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 
 [GMSAI_paratroopGroups] call GMSCore_fnc_removeNullEntries; 
 

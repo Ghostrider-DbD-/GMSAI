@@ -10,7 +10,7 @@
 
 	Copyright 2021 Ghostrider-GRG-
 */
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
 
 for "_i" from 1 to (count GMSAI_paratroopAircraftTypes) do 
 {
@@ -93,7 +93,7 @@ for "_i" from 1 to (count GMSAI_UAVTypes) do
 	};
 };
 
-
+[format["_validateConfigs: GMSAI_UGVtypes = %1", GMSAI_UGVtypes]] call GMSAI_fnc_log;
 for "_i" from 1 to (count GMSAI_UGVtypes) do 
 {
 	if (_i > (count GMSAI_UGVtypes)) exitWith {};
@@ -114,13 +114,13 @@ for "_i" from 1 to (count GMSAI_UGVtypes) do
 			{
 				[format["Error in GMSAI_config GMSAI_UGVtypes: classname %1 is not a Drone and was removed from GMSAI_UGVtypes",_cn]] call GMSAI_fnc_log;
 			} else {
-				GMSAI_UGVtypes pushBack _cn;
-				GMSAI_UGVtypes pushBack _wt;
+				//GMSAI_UGVtypes pushBack _cn;
+				//GMSAI_UGVtypes pushBack _wt;
 			};
 		};
 	};
 };
-
+[format["_validateConfigs: after classname validation, GMSAI_UGVtypes = %1", GMSAI_UGVtypes]] call GMSAI_fnc_log;
 for "_i" from 1 to (count GMSAI_patrolVehicles) do 
 {
 	if (_i > (count GMSAI_patrolVehicles)) exitWith {};

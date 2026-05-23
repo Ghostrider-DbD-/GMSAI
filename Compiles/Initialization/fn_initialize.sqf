@@ -3,7 +3,7 @@
 	Copyright 2020 Ghostrider-GRG-
 */
 // Defines that are used for configuration of units and other things 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
+#include "GMSAI_defines.hpp"
 
 if (!(isServer) || hasInterface) exitWith {diag_log "[GMSAI] ERROR: GMSAI SHOULD NOT BE RUN ON A CLIENT PC";};
 diag_log format["[GMSAI] Initializing GMSAI"];
@@ -11,6 +11,10 @@ if (!isNil "GMSAI_Initialized") exitWith {diag_log "[GMSAI] 	ERROR: GMSAI AREADY
 while {isNil "GMSCore_Initialized"} do {uiSleep 5};
 while {isNil "GMSCore_Side"} do {uisleep 5};
 while {isNil "GMSCore_modType"} do {uiSleep 5};
+
+// With debug = 1, additional debuggin information is logged or displayed on screen
+GMSAI_debug = getNumber(configFile >> "CfgGMSAI" >> "debug");
+if (GMSAI_debug > 0) then {[format["GMSAI_debug = %1", GMSAI_debug]] call GMSAI_fnc_log};
 
 GMSAI_world = worldname;
 GMSAI_worldSize = worldSize;
@@ -21,11 +25,11 @@ GMSAI_maxRangePatrols =  GMSAI_axis * 2 / 3;
 
 // configs for static and dynamic patrols, as well as vehicle, air, UGV and UAV patrols. 
 // Load before variables to be sure debug settings are available.
-#include "\GMSAI\Configs\GMSAI_configs.sqf";
-#include "\GMSAI\Configs\GMSAI_playerMessages.sqf";
+#include "\x\addons\GMSAI\Configs\GMSAI_configs.sqf";
+#include "\x\addons\GMSAI\Configs\GMSAI_playerMessages.sqf";
 
 // variables in which lists of areas, groups, etc are stored 
-#include "\GMSAI\Compiles\initialization\GMSAI_Variables.sqf";
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_Variables.sqf";
 
 // configs for units based on the type of mod or use a default setting if no mod specified.
 
@@ -38,34 +42,44 @@ private["__GMSAI_moneyBlue","_GMSAI_moneyRed","_GMSAI_moneyGreen","_GMSAI_moneyO
 switch (toLowerANSI(GMSCore_modType)) do 
 {
 	case "exile": {	
-		#include "\GMSAI\Configs\GMSAI_unitLoadoutExile.sqf"
+		#include "\x\addons\GMSAI\Configs\GMSAI_unitLoadoutExile.sqf"
 	};
 	case "epoch": {	
-		#include "\GMSAI\Configs\GMSAI_unitLoadoutEpoch.sqf"
+		#include "\x\addons\GMSAI\Configs\GMSAI_unitLoadoutEpoch.sqf"
 	};
 
 	default { 
-		#include "\GMSAI\Configs\GMSAI_unitLoadoutDefault.sqf"
+		#include "\x\addons\GMSAI\Configs\GMSAI_unitLoadoutDefault.sqf"
 	};
 };
 
 if (GMSAI_validateClassnames) then 
 {
+	#define remove true 
+	#define keep false 
 	if (GMSAI_debug > 0) then {[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_paratroopAircraftTypes']] call GMSAI_fnc_log};
-	[GMSAI_paratroopAircraftTypes,true] call GMSCore_fnc_checkClassnamesArray;
-	[GMSAI_paratroopAircraftTypes,true] call GMSCore_fnc_checkClassNamePrices;
+	[GMSAI_paratroopAircraftTypes,remove] call GMSCore_fnc_checkClassnamesArray;
+	[GMSAI_paratroopAircraftTypes,keep] call GMSCore_fnc_checkClassNamePrices;
+
 	if (GMSAI_debug > 0) then {[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_aircraftTypes']] call GMSAI_fnc_log};
-	[GMSAI_aircraftTypes,true] call GMSCore_fnc_checkClassnamesArray;
-	[GMSAI_aircraftTypes,true] call GMSCore_fnc_checkClassNamePrices;	
+	[GMSAI_aircraftTypes,remove] call GMSCore_fnc_checkClassnamesArray;
+	[GMSAI_aircraftTypes,keep] call GMSCore_fnc_checkClassNamePrices;
+	if (GMSAI_aircraftTypes isEqualTo []) then {GMSAI_numberOfAircraftPatrols = 0};
+
 	if (GMSAI_debug > 0) then {[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_UAVTypes']] call GMSAI_fnc_log};
-	[GMSAI_UAVTypes,true] call GMSCore_fnc_checkClassnamesArray;
-	[GMSAI_UAVTypes,true] call GMSCore_fnc_checkClassNamePrices;	
+	[GMSAI_UAVTypes, remove] call GMSCore_fnc_checkClassnamesArray;
+	[GMSAI_UAVTypes, keep] call GMSCore_fnc_checkClassNamePrices;	
+	if (GMSAI_UAVTypes isEqualTo []) then {GMSAI_numberOfUAVPatrols = 0};
+	
 	if (GMSAI_debug > 0) then {[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_UGVtypes']] call GMSAI_fnc_log};
-	[GMSAI_UGVtypes,true] call GMSCore_fnc_checkClassnamesArray;	
-	[GMSAI_UGVtypes,true] call GMSCore_fnc_checkClassNamePrices;	
+	[GMSAI_UGVtypes, remove] call GMSCore_fnc_checkClassnamesArray;	
+	[GMSAI_UGVtypes,keep] call GMSCore_fnc_checkClassNamePrices;	
+	if (GMSAI_UGVtypes isEqualTo []) then {GMSAI_numberOfUGVPatrols = 0};	
+	
 	if (GMSAI_debug > 0) then {[format["GMSAI_fnc_initialize: Checking classnames for %1",'GMSAI_patrolVehicles']] call GMSAI_fnc_log};
-	[GMSAI_patrolVehicles,true] call GMSCore_fnc_checkClassnamesArray;
-	[GMSAI_patrolVehicles,true] call GMSCore_fnc_checkClassNamePrices;		
+	[GMSAI_patrolVehicles, remove] call GMSCore_fnc_checkClassnamesArray;
+	[GMSAI_patrolVehicles, keep] call GMSCore_fnc_checkClassNamePrices;	
+	if (GMSAI_patrolVehicles isEqualTo []) then {GMSAI_noVehiclePatrols = 0};
 };
 
 /*
@@ -227,9 +241,7 @@ GMSAI_staticRandomSettings = [GMSAI_staticrandomunitsPerGroup,GMSAI_staticRandom
 GMSAI_dynamicSettings = [GMSAI_dynamicRandomGroups,GMSAI_dynamicRandomUnits,GMSAI_dynamicUnitsDifficulty,GMSAI_dynamicRandomChance,GMSAI_staticRespawns, GMSAI_staticRespawnTime, GMSAI_staticDespawnTime,GMSAI_infantry];
 GMSAI_paratroopSettings = [GMSAI_numberParatroops,GMSAI_paratroopDifficulty,GMSAI_chanceParatroops,0,GMSAI_paratroopCooldownTimer,GMSAI_paratroopDespawnTimer,GMSAI_infantry];
 
-// These locations are used as spawn points for aircraft
-GMSAI_aircraftPatrolDestinations = [] call GMSCore_fnc_getLocationsForWaypoints;
-//diag_log format["[GMSAI] Initializing Static and Vehicle Spawns at %1",diag_tickTime];
+[] call GMSAI_fnc_initializeBlacklistedAreas;
 [] call GMSAI_fnc_initializeStaticSpawnsForLocations;
 [] call GMSAI_fnc_initializeRandomSpawns;
 [] call GMSAI_fnc_initializeAircraftPatrols;
@@ -238,6 +250,7 @@ GMSAI_aircraftPatrolDestinations = [] call GMSCore_fnc_getLocationsForWaypoints;
 [] call GMSAI_fnc_initializeVehiclePatrols;
 [] call GMSAI_fnc_initializeCustomSpawns;
 //[] call GMSAI_fnc_initializeSafeZones;
+
 [] spawn GMSAI_fnc_mainThread;
 
 private _build = getText(configFile >> "GMSAI_Build" >> "build");
@@ -245,9 +258,16 @@ private _buildDate = getText(configFile >> "GMSAI_Build" >> "buildDate");
 private _version = getText(configFile >> "GMSAI_Build" >> "version");
 GMSAI_Initialized = true;
 
-[] call compileFinal preprocessFileLineNumbers "\GMSAI\Configs\GMSAI_custom.sqf";
+[] call compileFinal preprocessFileLineNumbers "\x\addons\GMSAI\Configs\GMSAI_custom.sqf";
 [format[" Version %1 Build %2 Date %3 Initialized at %4",_version,_build,_buildDate,diag_tickTime]] call GMSAI_fnc_log;
 
+/*
+private _g = [];
+private _h = selectRandom _g;
+private _i = selectRandomWeighted _g;
+diag_log format["[GMSAI] selectRandom [] = %1", selectRandom _g];
+diag_log format["[GMSAI] selectRandomWeighted [] = %1", selectRandomWeighted _g];
+private _j = if (isNull _h) then {true} else {false};
 
 
 

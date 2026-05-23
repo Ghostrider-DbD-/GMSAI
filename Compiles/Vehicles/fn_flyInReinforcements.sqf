@@ -13,7 +13,7 @@
 	Copyright 2020 Ghostrider-GRG-
 */
 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 params["_dropPos","_group",["_target",ObjNull]];
 [format["flyInReinforcements CALLED: _dropPos = %1 | _targetPos = %2 | _group = %3 | _target = %4",_dropPos,getPosATL _target,_group,_target]] call GMSAI_fnc_log;
 /*
@@ -26,6 +26,7 @@ params["_dropPos","_group",["_target",ObjNull]];
 
 	TODO: test if this is used.
 	TODO: Add 'gunship' option that specifies that the heli will patrol the area and try to take out any players spotted.
+	// TODO: update parameter list for call to GMSCore_fnc_spawnPatrolAircraft
 */
 
 // make sure no other reinforcements are called in for a while

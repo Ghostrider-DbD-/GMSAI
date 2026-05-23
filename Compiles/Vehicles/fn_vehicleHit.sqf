@@ -11,9 +11,7 @@
 	Copyright 2020 by Ghostrider-GRG-
 
 	Notes: 		
-		GMS provides an EH to handleDamage 
-		GMS allerts the vehicle crew and sets it mode to combat 
-		TODO: think about whether some hunting logic or other adaptations to GMSAI is needed. 
+
 */
 
 //params["_vehicle","_causedBy","_damage","_instigator"];

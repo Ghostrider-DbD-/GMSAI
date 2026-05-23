@@ -11,9 +11,7 @@
 	Copyright 2020 by Ghostrider-GRG-
 
 	Notes:
-		GMS handles all the basics including cleaning up the wreck. 
-		Nothing is done by GMS about alerting nearby groups
-		TODO: think about increasing alertness or bumping skills of nearby groups when this happens.
+
 */
 
 //params["_vehicle","_killer","_instigator"];

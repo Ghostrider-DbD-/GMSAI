@@ -10,18 +10,21 @@
 	Copyright 2020 Ghostrider-GRG-
 
 	Notes:
-		TODO: think about how to add also the patrols that are user defined
+
 */
 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+if (GMSAI_aircraftTypes isEqualTo []) exitWith 
+{
+	GMSAI_numberOfAircraftPatrols = 0;
+	["GMSAI_aircraftTypes isEqualTo []-  Aircraft Patrols disabled"] call GMSAI_fnc_log;
+};
+
 if (GMSAI_numberOfAircraftPatrols <= 0) exitWith 
 {
 	["GMSAI_numberOfAircraftPatrols <= 0 - Aircraft Patrols disabled"] call GMSAI_fnc_log;
 };
-if (GMSAI_aircraftTypes isEqualTo []) exitWith 
-{
-	["GMSAI_aircraftTypes isEqualTo []-  Aircraft Patrols disabled"] call GMSAI_fnc_log;
-};
+
 #define lastSpawned -1 
 for "_i" from 1 to GMSAI_numberOfAircraftPatrols do
 {

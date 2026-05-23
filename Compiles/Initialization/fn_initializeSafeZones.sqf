@@ -10,7 +10,7 @@
 		Safezones also will detect and delete GMS_RC AI
 */
 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 
 {
 	[_x, GMSAI_maxSafeZoneLoiterTime] call GMSCore_fnc_addSafeZone;

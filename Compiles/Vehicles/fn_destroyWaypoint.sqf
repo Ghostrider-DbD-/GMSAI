@@ -14,7 +14,7 @@
 
 */
 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
 
 params["_group"];
 private _wp = [_group,0];

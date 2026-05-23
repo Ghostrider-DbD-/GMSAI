@@ -5,11 +5,12 @@
 			Locations: are any town, city etc defined at startup. 
 
 	Parameters: 
+		_difficulty 
+		_className
 		_pos, position to spawn chopper 
-		_patrolArea - can be "Map" or "Region". "Region will respect the boundaries of a map marker while Map will patrol the entire map. 
-		_blackListed - areas to avoid formated as [[x,y,z],radius]
-		_center, center of the area, either mapCenter of center of the patrol area 
-		_timeout - how long to wait before deciding the chopper is 'stuck'
+		_patrolArea 
+		_marderDelete 
+
 
 	Returns: [
 		_group, the group spawned to man the heli 
@@ -21,7 +22,7 @@
 	Notes: 
 */
 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp"
 
 params[
 		["_difficulty",0],
@@ -29,8 +30,6 @@ params[
 		["_pos",[0,0,0]],					// Random position for patrols that roam the whole map 
 								// or center of the area to be patrolled for those that are restricted to a smaller region
 		["_patrolArea","Map"],  // "Map" will direct the chopper to patrol the entire map, "Region", a smaller portion of the map.
-		["_blackListed",[]],  	// areas to avoid within the patrol region
-		["_timeout",GMSAI_waypointTimeout],  // The time that must elapse before the antistuck function takes over.]];
 		["_markerDelete",false]
 	];	
 
@@ -38,81 +37,52 @@ private _group = grpNull;
 private _aircraft = objNull;
 
 try {
+
 	if !(isClass(configFile >> "CfgVehicles" >> _className)) throw -3; 
 
-	private _crewCount = (GMSAI_aircraftGunners + 2) min ([_className,false]  call BIS_fnc_crewCount);
+	/*
+		params[
+			["_className",""],
+			["_patrolArea",GMSCore_mapMarker],
+			["_markerDelete",false],
+			["_disable",0],  // damage value set to this value if less than this value when all crew are dead
+			["_removeFuel",0.2],  // uel set to this value when all crew dead
+			["_releaseToPlayers",true],
+			["_deleteTimer",300]
+		];
+	*/
+	//[format["_spawnAircraftPatrol: _pos = %1",_pos]] call GMSAI_fnc_log;
 
-	 _group = [
+	private _patrol = [
+		_classname,
 		_pos,
-		_crewCount,
-		GMSCore_side,
-		GMSAI_baseSkill,
-		GMSA_alertDistanceByDifficulty select _difficulty,
-		GMSAI_intelligencebyDifficulty select _difficulty,
-		GMSAI_bodyDeleteTimer,
-		GMSAI_maxReloadsInfantry,
-		GMSAI_launcherCleanup,
-		GMSAI_removeNVG,
-		GMSAI_minDamageForSelfHeal,
-		GMSAI_maxHeals,
-		GMSAI_unitSmokeShell,
-		[GMSAI_fnc_unitHit],
-		[GMSAI_fnc_unitKilled],
-		GMSAI_chanceToGarisonBuilding
-	] call GMSCore_fnc_spawnInfantryGroup;
-	//[format["_spawnAircraftPatrol: GMSCore_fnc_spawnInfantryGroup returned _group %1",_group]] call GMSAI_fnc_log;
+		_patrolArea,
+		_markerDelete,
+		0.5,  	// Disable  
+		GMSA_removeFuel,  // what level to set fuel when released to players
+		GMSAI_releaseVehiclesToPlayers,
+		GMSAI_vehicleDeleteTimer	
+	] call GMSCore_fnc_spawnPatrolAir;
+
+	_group = _patrol select 0;
+	_aircraft = _patrol select 1;
+
+	//[format["_spawnAircraftPatrol: _group %1 | _aircraft %2 | _pos %3 | getPosATL _aircraft %4", _group, _aircraft, _pos, getPosATL _aircraft]] call GMSAI_fnc_log; 
+	
 	if (isNull _group) throw -2;
+	if (isNull _aircraft) throw -1;
 
 	[_group,GMSAI_unitDifficulty select (_difficulty)] call GMSCore_fnc_setupGroupSkills;
 	[_group, GMSAI_unitLoadouts select _difficulty, 0 /* launchers per group */, GMSAI_useNVG] call GMSCore_fnc_setupGroupGear;
 	[_group,_difficulty,GMSAI_money select _difficulty] call GMSCore_fnc_setupGroupMoney;
-	/*
-	params[
-		["_className",""],	
-		["_group",grpNull],
-		["_pos",[0,0,0]],
-		["_dir",0],
-		["_height",0],	
-		["_disable",0],  // a value greater than 0 will increase damage of the object to that level; set to 1.0 to disable turretes, 0.7 to neutralize vehciles
-		["_removeFuel",false],  // when true fuel is removed from the vehicle
-		["_releaseToPlayers",true],
-		["_deleteTimer",300],
-		["_vehHitCode",[]],
-		["_vehKilledCode",[]]
-	];
-	*/
-
-	_aircraft = [
-		_classname,
-		_group,
-		_pos,
-		0,  	//  dir
-		GMSAI_aircraftFlyinHeight,  	//  Height
-		0,  	// Disable  
-		GMSA_removeFuel,  // what level to set fuel when released to players
-		GMSAI_releaseVehiclesToPlayers,
-		GMSAI_vehicleDeleteTimer,
-		[GMSAI_fnc_aircraftHit],
-		[GMSAI_fnc_vehicleKilled]
-	] call GMSCore_fnc_spawnPatrolAircraft;
-	//[format["_spawnAircraftPatrol: GMSCore_fnc_spawnPatrolAircraft returned _aircraft %1",_aircraft]] call GMSAI_fnc_log;
-	if (isNull _aircraft) throw -1;
-
-	[
-		_group,
-		_blacklisted,
-		_patrolArea,
-		_timeout,
-		GMSAI_chanceToGarisonBuilding,
-		"air",
-		_markerDelete
-	] call GMSCore_fnc_initializeWaypointsAreaPatrol;
-	
+		
 	[_aircraft,GMSAI_forbidenWeapons,GMSAI_forbidenMagazines] call GMSCore_fnc_disableVehicleWeapons;
 	[_aircraft,GMSAI_disabledSensors] call GMSCore_fnc_disableVehicleSensors;
 	if (GMSAI_disableInfrared) then {_heli disableTIEquipment true};
-	_group addVehicle _aircraft;
-	[_group, GMSAI_BlacklistedLocations] call GMSCore_fnc_setGroupBlacklist;	
+	[_group, GMSAI_chanceParatroops] call GMSCore_fnc_setChanceParaDrop; 
+	[_group, GMSAI_chancePlayerDetected] call GMSCore_fnc_setChanceDetectedAir; 
+	[_group, GMSAI_paratroopCooldownTimer] call GMSCore_fnc_setParaInterval;
+	// TODO - add any event handlers or other things not hanled by SpawnAircraftPatrol by default
 }
 
 catch {
@@ -122,7 +92,7 @@ catch {
 		};
 
 		case -2: {
-			[format["_spawnAircraftPatrol: GMSCore_fnc_spawnInfantryGroup returned grpNull"],'warning'] call GMSAI_fnc_log;
+			[format["_spawnAircraftPatrol: grpNull"],'warning'] call GMSAI_fnc_log;
 		};
 
 		case -1: {

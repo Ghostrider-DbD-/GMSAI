@@ -12,7 +12,7 @@
 	Notes:
 		-May want to take advantage of the setMode commands in GMS for these monitoring script for the case where the thing went outside the patrol area
 */
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 //diag_log format["[GMSAI] _monitorUGVPatrols called at %1 with count GMSAI_UGVPatrols = %2",diag_tickTime, count GMSAI_UGVPatrols];
 
 
@@ -30,13 +30,13 @@ GMSAI_monitorUGVPatrolsActive = true;
 #define crewGroupOnFood 9
 #define spawnVehicleOnRoad true 
 
-diag_log format["_monitorUGVPatrols: count GMSAI_UGVPatrols = %1",count GMSAI_UGVPatrols];
+//diag_log format["_monitorUGVPatrols: count GMSAI_UGVPatrols = %1",count GMSAI_UGVPatrols];
 for "_i" from 1 to (count GMSAI_UGVPatrols) do
 {
 	if (_i > (count GMSAI_UGVPatrols)) exitWith {};
 	private _UGVPatrol = GMSAI_UGVPatrols deleteAt 0;
 	_UGVPatrol params["_blacklistedAreas","_crewGroup","_UGV","_lastSpawned","_timesSpawned","_respawnAt","_respawnTime","_respawns","_availDifficulties","_availUGV"];  
-	
+	//diag_log format["GMSAI _monotirUGVPatrols: _availUGF = %1", _availUGV];
 	private ["_crewCount","_countUnits","_addBack","_respawn"];
 	
 	try {
@@ -47,7 +47,7 @@ for "_i" from 1 to (count GMSAI_UGVPatrols) do
 		} else { // no patrol spawned, so check if conditions for spanwn are met.
 			private _numberCrew = {alive _x} count (crew _UGV);
 			private _numberUnits =  ({alive _x} count (units _crewGroup));
-			diag_log format["_monitorUGVPatrols(46): _numberCrew %1 | _numberUnits %2 | _crewGroup %3| _UGV %4",_numberCrew, _numberUnits, _crewGroup, _UGV];
+			//diag_log format["_monitorUGVPatrols(46): _numberCrew %1 | _numberUnits %2 | _crewGroup %3| _UGV %4",_numberCrew, _numberUnits, _crewGroup, _UGV];
 			if (alive _UGV && _numberCrew > 0) then {
 				_action = 1; // check fuel and continue monitoring 
 			} else {
@@ -74,7 +74,7 @@ for "_i" from 1 to (count GMSAI_UGVPatrols) do
 
 		switch (_action) do {			
 			case 0: { // All crew dead and/or UGV dead 
-				diag_log format["_monitorUGVPatrols(case 0) called"];
+				//diag_log format["_monitorUGVPatrols(case 0) called"];
 				if (_respawns == -1 || _timesSpawned <= _respawns) then
 				{
 					_UGVPatrol set[5,diag_tickTime + ([_respawnTime] call GMSCore_fnc_getNumberFromRange)];
@@ -82,7 +82,7 @@ for "_i" from 1 to (count GMSAI_UGVPatrols) do
 				};
 			};
 			case 1: { // a UGV patrol is acrtive; check fuel, keep monitoring.
-				diag_log format["_monitorUGVPatrols(case 1) called"];
+				//diag_log format["_monitorUGVPatrols(case 1) called"];
 
 				if (fuel _UGV < 0.1) then {_UGV setFuel 1.0};
 				private _lastPos = _crewGroup getVariable["lastPosition",[0,0]];
@@ -102,7 +102,7 @@ for "_i" from 1 to (count GMSAI_UGVPatrols) do
 			};
 			case 2: {  // Test if it is time to spawn a new UGV
 				//  
-				diag_log format["_monitorUGVPatrols(case 2) called"];
+				//diag_log format["_monitorUGVPatrols(case 2) called"];
 				// This will spawn an UGV on server startup because _respawnAt is set to -1 so diag_tickTime is always > _respawnAt at server startup.
 
 				if (diag_tickTime > _respawnAt) then
@@ -110,33 +110,39 @@ for "_i" from 1 to (count GMSAI_UGVPatrols) do
 
 					_pos = [[] call GMSCore_fnc_getMapMarker, _blacklistedAreas] call GMSAI_fnc_findPositionLandPatrol; 
 
-					diag_log format["_monitorUGVPatrols(103): _pos = %1 for position of  anearby road",_pos];	
-					
+					//diag_log format["_monitorUGVPatrols(103): _pos = %1 for position of  anearby road",_pos];	
+					/*
+						["_difficulty",0],			// Difficulty (integer) of the AI in the UGV
+						["_className",""],		// ClassName of the UGV to spawn 
+						["_pos",[0,0,0]],					// Random position for patrols that roam the whole map 
+												// or center of the area to be patrolled for those that are restricted to a smaller region
+						["_patrolArea",GMSAI_patrolRoads],  // "Map" will direct the chopper to patrol the entire map, "Region", a smaller portion of the map.
+						["_markerDelete",false],
+						["_spawnOnRoad",true]
+					*/
 					_newPatrol = [
 						(selectRandomWeighted _availDifficulties),
 						(selectRandomWeighted _availUGV), 
 						_pos,
 						[] call GMSCore_fnc_getMapMarker, // The marker for teh whole map 
-						_blacklistedAreas,
-						300,
 						false, // deleteMarker 
 						false // spawnOnRoads
 					] call GMSAI_fnc_spawnUGVPatrol;
 
 					_newPatrol params["_crewGroup","_UGV"];
-					[format["spawned UGV patrol at %1 using typeOf UGV %2 -> UGV %3 with group %4",_pos, typeOf _UGV, _UGV, _crewGroup]] call GMSAI_fnc_log;
 					
-					if (!isNull _crewGroup && !isNull _UGV) then { 
+					if ((!isNull _crewGroup) && !(isNull _UGV)) then { 
 						_UGVPatrol set[vehCrewGroup,_crewGroup];
 						_UGVPatrol set[currVehicle,_UGV];
 						_UGVPatrol set[vehLastSpawned,diag_tickTime];
 						_UGVPatrol set[vehTimesSpawned,_timesSpawned + 1];
 
-						if (GMSAI_debug > 0) then {[format["GMSAI_fnc_monitorUGVPatrols: GMSAI_fnc_spawnUGVPatrol returned nullGrp %1 : UGV %2", _crewGroup, _UGV]] call GMSAI_fnc_log};
 						_UGVPatrol set[1,_crewGroup];
 						_UGVPatrol set[2,_UGV];
 						_UGVPatrol set[3,diag_tickTime];
 						_UGVPatrol set[4,_timesSpawned + 1];
+						//  // [format["_monitorAirPatrols: spawned aircraft patrol at %1 using aircraft %2 with _group = %3 and _aircraft = %4",_pos, typeOf _aircraft,_group,_aircraft]] call GMSAI_fnc_log;
+						[format["_monitorUGVpatrols:  spawned UGV patrol at %1 using typeOf UGV %2 -> UGV %3 with group %4",_pos, typeOf _UGV, _UGV, _crewGroup]] call GMSAI_fnc_log;						
 						GMSAI_UGVPatrolGroups pushBack _crewGroup; //  Used only to count the number of active groups serving this function.
 															// This list is monitored by _mainThread and empty or null groups are periodically removed.
 					} else {
@@ -151,7 +157,7 @@ for "_i" from 1 to (count GMSAI_UGVPatrols) do
 							} else {;
 								if (isNull _UGV) then {_action = 2};
 							};
-					
+							if (GMSAI_debug > 0) then {[format["GMSAI_fnc_monitorUGVPatrols: GMSAI_fnc_spawnUGVPatrol returned nullGrp %1 : UGV %2", _crewGroup, _UGV]] call GMSAI_fnc_log};
 							throw _action; // _crewGroup was null for some reason	
 					};
 
@@ -161,19 +167,19 @@ for "_i" from 1 to (count GMSAI_UGVPatrols) do
 			case 3: {  // UGV survived but all crew killed; move UGV to cue players can claim; set patrol up for respawn. 
 						// UGV is automatically moved to the cue for empty UGVs and handled according to setting passed when it was spawned  
 						// So all we need to do here is set things up to respawn the patrol.
-					diag_log format["_monitorUGVPatrols(case 3) called"];						
+					//diag_log format["_monitorUGVPatrols(case 3) called"];						
 					_UGVPatrol set[5,diag_tickTime + ([_respawnTime] call GMSCore_fnc_getNumberFromRange)];
 					_UGVPatrol set[3,-1];
 					GMSAI_UGVPatrols pushBack _UGVPatrol;
 			};
 			case 4: {  // some units survive so set them up as a random patrol with time limits; set for respawn
 					// UGV is automatically moved to the cue for empty UGVs and handled according to setting passed when it was spawned  
-					diag_log format["_monitorUGVPatrols(case 4) called"];
-					private _patrolArea = createMarkerLocal[format["GMSAI_remnant%1",_crewGroup],getPosATL _UGV];
-					{_crewGroup reveal[_x,4]} forEach [(getPosATL (leader _crewGroup)), 150] call GMSCore_fnc_nearestPlayers; 
-					_crewGroup setVariable["target",_nearPlayers select 0];
-					_patrolArea setMarkerShapeLocal "RECTANGLE";
-					_patrolArea setMarkerSizeLocal [150,150];
+					//diag_log format["_monitorUGVPatrols(case 4) called"];
+					//private _patrolArea = createMarkerLocal[format["GMSAI_remnant%1",_crewGroup],getPosATL _UGV];
+					//{_crewGroup reveal[_x,4]} forEach [(getPosATL (leader _crewGroup)), 150] call GMSCore_fnc_nearestPlayers; 
+					//_crewGroup setVariable["target",_nearPlayers select 0];
+					//_patrolArea setMarkerShapeLocal "RECTANGLE";
+					//_patrolArea setMarkerSizeLocal [150,150];
 					//  	_area params["_patrolAreaMarker","_staticAiDescriptor","_areaActive","_spawnedGroups","_debugMarkers","_respawnAt","_timesSpawned","_lastDetected","_markerDelete","_lastPingedPlayer"];
 					//  	_staticAiDescriptor params["_unitsPerGroup","_difficulty","_chance","_maxRespawns","_respawnTime", "_despawnTime","_types"];
 					/*
@@ -190,6 +196,7 @@ for "_i" from 1 to (count GMSAI_UGVPatrols) do
 							["_respawnTimer",1000000]
 						];
 					*/
+					/*
 					[
 						_patrolArea,
 						[0, 0, 0, 0, 10000, 300, ["Infantry"]],  //  _staticAIDescriptor 
@@ -211,6 +218,7 @@ for "_i" from 1 to (count GMSAI_UGVPatrols) do
 						"Infantry",
 						false  // do not delete marker defining patrol area of the group is all dead
 					] call GMSCore_fnc_initializeWaypointsAreaPatrol;
+					*/
 					GMSAI_UGVPatrols pushBack _UGVPatrol;					
 			};		
 		};

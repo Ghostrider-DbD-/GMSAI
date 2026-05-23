@@ -17,8 +17,8 @@
 /*
 	
 */
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
-[format[" _monitorAirPatrols called at %1 for %2 ACTIVE Air Patrols",diag_tickTime, count GMSAI_airPatrols]] call GMSAI_fnc_log;
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+//[format[" _monitorAirPatrols called at %1 for %2 ACTIVE Air Patrols",diag_tickTime, count GMSAI_airPatrols]] call GMSAI_fnc_log;
 
 if (GMSAI_monitorVehiclePatrolsActive) exitWith {};
 GMSAI_monitorAircraftPatrolsActive = true; 
@@ -27,19 +27,19 @@ for "_i" from 1 to (count GMSAI_airPatrols) do
 {
 	if (_i > (count GMSAI_airPatrols)) exitWith {};
 	private _airPatrol = GMSAI_airPatrols deleteAt 0;
-	_airPatrol params["_blacklistedAreas","_crewGroup","_aircraft","_lastSpawned","_timesSpawned","_respawnAt","_respawnTime","_respawns","_availDifficulties","_availAircraft"];  //,"_spawned"];
+	_airPatrol params["_blacklistedAreas","_group","_aircraft","_lastSpawned","_timesSpawned","_respawnAt","_respawnTime","_respawns","_availDifficulties","_availAircraft"];  //,"_spawned"];
 
 	private ["_crewCount","_countUnits","_addBack","_respawn"];
 
 	try {
-		private _varNames = ["_blacklistedAreas","_crewGroup","_aircraft","_lastSpawned","_timesSpawned","_respawnAt","_respawnTime","_respawns","_availDifficulties","_availAircraft"];
+		private _varNames = ["_blacklistedAreas","_group","_aircraft","_lastSpawned","_timesSpawned","_respawnAt","_respawnTime","_respawns","_availDifficulties","_availAircraft"];
 		private "_action";
 
 		if (_lastSpawned <= 0) then {
 			 _action = 2;
 		 } else { // no patrol spawned, so check if conditions for spanwn are met.
 			private _numberCrew = {alive _x} count (crew _aircraft);
-			private _numberUnits =  ({alive _x} count (units _crewGroup));
+			private _numberUnits =  ({alive _x} count (units _group));
 			if (alive _aircraft && _numberCrew > 0) then {
 				_action = 1; // check fuel and continue monitoring 
 			} else {
@@ -73,9 +73,13 @@ for "_i" from 1 to (count GMSAI_airPatrols) do
 			case 1: { // an aircraft patrol is acrtive;  check if paratroups should be spawned, check fuel, keep monitoring.
 				//diag_log format["_monitorAirPatrols(case 1) called"];
 
+				// Reinforcements code moved to GMSCore 
+				// 11/4/2025
+				/*
 				if (fuel _aircraft < 0.1) then {_aircraft setFuel 1.0};
 				#define isUAV false 
-				if (!surfaceIsWater (getPosASL _aircraft)) then {[_crewGroup,_aircraft,isUAV] call GMSAI_fnc_spawnParatroops};
+				if (!surfaceIsWater (getPosASL _aircraft)) then {[_group,_aircraft,isUAV] call GMSAI_fnc_spawnParatroops};
+				*/
 				GMSAI_airPatrols pushBack _airPatrol;
 			};
 			case 2: {  // Test if it is time to spawn a new aircraft
@@ -98,28 +102,33 @@ for "_i" from 1 to (count GMSAI_airPatrols) do
 							GMSAI_aircraftFlyinHeight
 						] call GMSAI_fnc_spawnAircraftPatrol;
 						_newPatrol params["_group","_aircraft"];
-						if (isNull _aircraft) throw 2; // could not create the aircraft for some reason.
-						[format["spawned aircraft patrol at %1 using aircraft %2 with _group = %3 and _aircraft = %4",_pos, typeOf _aircraft,_group,_aircraft]] call GMSAI_fnc_log;
-						if !(isNull _group) then {
-							if (GMSAI_debug > 0) then {[format["GMSAI_fnc_monitorAircraftPatrols: GMSAI_fnc_spawnAircraftPatrol returned nullGrp %1 : aircraft %2", _group, _aircraft]] call GMSAI_fnc_log};
+
+						//[format["_monitorAirPatrols: _newPatrol select 0 %1 | _newPatrol select 1 %2", _newPatrol select 0, _newPatrol select 1]] call GMSAI_fnc_log; 
+						
+						if (!(isNull _group) && !(isNull _aircraft)) then {
 							_airPatrol set[1,_group];
 							_airPatrol set[2,_aircraft];
 							_airPatrol set[3,diag_tickTime];
 							_airPatrol set[4,_timesSpawned + 1];
+							[format["_monitorAirPatrols: spawned aircraft patrol at %1 using aircraft %2 with _group = %3 and _aircraft = %4",_pos, typeOf _aircraft,_group,_aircraft]] call GMSAI_fnc_log;
 							GMSAI_AirPatrolGroups pushBack _group; //  Used only to count the number of active groups serving this function.
 														// This list is monitored by _mainThread and empty or null groups are periodically removed.
 						} else {
 							// Something happened - try again later
+							private _action = 0;
+							if !(isNull _aircraft) then {
+								[_group] call GMSCore_fnc_destroyVehicleAndCrew;
+								_action = _action + 1;
+							} else {
+								if !(isNull _group) then {[_group] call GMSCore_fnc_despawnInfantryGroup};
+								_action = _action + 2;
+							};
+
 							_airPatrol set[5,diag_tickTime + ([_respawnTime] call GMSCore_fnc_getNumberFromRange)];
 							_airPatrol set[3,-1];
 							GMSAI_airPatrols pushBack _airPatrol;
-							if (isNull _group) then {
-								_action = 1;
-							} else {;
-								if (isNull _aircraft) then {_action = 2};
-							};
-							[_group] call GMSCore_fnc_destroyVehicleAndCrew; 							
-							throw _action; // _group was null for some reason	
+																	
+							throw _action; // _group and/or aircraft was null for some reason	
 						};
 					};
 				};
@@ -133,12 +142,12 @@ for "_i" from 1 to (count GMSAI_airPatrols) do
 					_airPatrol set[3,-1];
 					GMSAI_airPatrols pushBack _airPatrol;
 			};
-			case 4: {  // some units survive so set them up as a random patrol with time limits; set for respawn
+			case 4: {  // vehicle empty or crashed with some units surviving so set them up as a random patrol with time limits; set for respawn
 					// Vehicle is automatically moved to the cue for empty vehicles and handled according to setting passed when it was spawned  
 					//diag_log format["_monitorAirPatrols(case 4) called"];
-					private _patrolArea = createMarkerLocal[format["GMSAI_remnant%1",_crewGroup],getPosATL _vehicle];
-					{_crewGroup reveal[_x,4]} forEach [(getPosATL (leader _crewGroup)), 150] call GMSCore_fnc_nearestPlayers; 
-					_crewGroup setVariable["target",_nearPlayers select 0];
+					private _patrolArea = createMarkerLocal[format["GMSAI_remnant%1",_group],getPosATL _aircraft];
+					//{_group reveal[_x,4]} forEach [(getPosATL (leader _group)), 150] call GMSCore_fnc_nearestPlayers; 
+					//_group setVariable["target",_nearPlayers select 0];
 					_patrolArea setMarkerShapeLocal "RECTANGLE";
 					_patrolArea setMarkerSizeLocal [150,150];
 					//  	_area params["_patrolAreaMarker","_staticAiDescriptor","_areaActive","_spawnedGroups","_debugMarkers","_respawnAt","_timesSpawned","_lastDetected","_markerDelete","_lastPingedPlayer"];
@@ -169,8 +178,10 @@ for "_i" from 1 to (count GMSAI_airPatrols) do
 						true,
 						10000000
 					] call GMSAI_fnc_addActiveSpawn; 
+
+					/*
 					[
-						_crewGroup,
+						_group,
 						GMSAI_BlacklistedLocations,
 						_patrolArea,
 						300,  // waypoint timeout
@@ -178,6 +189,7 @@ for "_i" from 1 to (count GMSAI_airPatrols) do
 						"Infantry",
 						false  // do not delete marker defining patrol area of the group is all dead
 					] call GMSCore_fnc_initializeWaypointsAreaPatrol;
+					*/
 					GMSAI_airPatrols pushBack _airPatrol;					
 			};
 		};		

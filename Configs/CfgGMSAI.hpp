@@ -1,13 +1,4 @@
-Class CfgHuntedMsgs {
-	dynamic[] = {
 
-	};
-
-	areaPatrol[] = {
-
-	};
-
-	reinforcements[] = {
-
-	};
+class CfgGMSAI {
+    GMSAI_debug = 0;
 };

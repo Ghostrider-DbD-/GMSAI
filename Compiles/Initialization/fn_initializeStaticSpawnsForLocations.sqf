@@ -10,7 +10,7 @@
 	Copyright 2020 Ghostrider-GRG-
 */
 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 //diag_log format["[GMSAI] _initializeStaticSpawnsForLocations: GMSAI_useStaticSpawns = %1",GMSAI_StaticSpawnsRandom];
 
 _fn_createMarker = {

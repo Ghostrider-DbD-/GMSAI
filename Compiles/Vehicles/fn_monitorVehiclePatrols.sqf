@@ -10,8 +10,8 @@
 	Notes:
 		-May want to take advantage of the setMode commands in GMS for these monitoring script for the case where the thing went outside the patrol area
 */
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
-diag_log format["[GMSAI] _monitorVehiclePatrols called at %1 with count GMSAI_vehiclePatrols %2",diag_tickTime, count GMSAI_vehiclePatrols];
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+//diag_log format["[GMSAI] _monitorVehiclePatrols called at %1 with count GMSAI_vehiclePatrols %2",diag_tickTime, count GMSAI_vehiclePatrols];
 
 if (GMSAI_monitorVehiclePatrolsActive) exitWith {};
 GMSAI_monitorVehiclePatrolsActive = true; 
@@ -27,7 +27,7 @@ GMSAI_monitorVehiclePatrolsActive = true;
 #define crewGroupOnFood 9
 #define spawnVehicleOnRoad true 
 
-diag_log format["_monitorVehiclePatrols: count GMSAI_vehiclePatrols = %1",count GMSAI_vehiclePatrols];
+//diag_log format["_monitorVehiclePatrols: count GMSAI_vehiclePatrols = %1",count GMSAI_vehiclePatrols];
 for "_i" from 1 to (count GMSAI_vehiclePatrols) do {
 
 	if (_i > (count GMSAI_vehiclePatrols)) exitWith {};
@@ -83,15 +83,6 @@ for "_i" from 1 to (count GMSAI_vehiclePatrols) do {
 				private _lastTime = _crewGroup getVariable["lastTime",0];
 				private _spawnedAt = _crewGroup getVariable["spawnedAt",0];
 				if (_spawnedAt == 0) then {_crewGroup setVariable["spawnedAt", diag_tickTime]};
-				/*
-				if (diag_tickTime - _lastTime > 30) then {
-					diag_log format["monitorVehiclePatrols: _vehicle %1 typeOf %2 has moved %3 in %4 sec",_vehicle, typeOf _vehicle, _vehicle distance _lastPos, diag_tickTime - _lastTime];
-					diag_log format["monitorVehiclePatrols: _vehicle %1 typeOf %2 alive for %3 fuel %4 damage %5", _vehicle, typeOf _vehicle, diag_tickTime - _spawnedAt, fuel _vehicle, damage _vehicle];
-					_crewGroup setVariable["lastPosition", getPosATL _vehicle];
-					_crewGroup setVariable["lastTime",diag_tickTime];					
-					if (_vehicle distance _lastPos < 100) then {(leader _crewGroup) call GMSCore_fnc_nextWaypointAreaPatrol};
-				};
-				*/
 				GMSAI_vehiclePatrols pushBack _vehiclePatrol;
 			};
 			case 2: {  // Test if it is time to spawn a new Vehicle  
@@ -103,32 +94,40 @@ for "_i" from 1 to (count GMSAI_vehiclePatrols) do {
 
 					_pos = [[] call GMSCore_fnc_getMapMarker, _blacklistedAreas] call GMSAI_fnc_findPositionLandPatrol; 
 
-					diag_log format["_monitorVehiclePatrols(103): _pos = %1 for position of  anearby road",_pos];	
+					//diag_log format["_monitorVehiclePatrols(103): _pos = %1 for position of  anearby road",_pos];	
+					/*
+						params[
+						"_difficulty",
+						"_classname",			// className of vehicle to spawn
+						"_pos",					// Random position for patrols that roam the whole map 
+												// or center of the area to be patrolled for those that are restricted to a smaller region
+						["_patrolArea", [] call GMSCore_fnc_getMapMarker],  // "Map" will direct the vehicle to patrol the entire map, "Region", a smaller portion of the map.
+						["_markerDelete",false]
+					];  
+					*/
+					// TODO: Need to adopt new system for spawning 
 					private _newPatrol = [
 						[selectRandomWeighted _availDifficulties] call GMSCore_fnc_getIntegerFromRange,
 						selectRandomWeighted _availVehicles,
 						_pos,
 						[] call GMSCore_fnc_getMapMarker,  //  The marker for teh whole map
-						_blacklistedAreas,
-						GMSAI_waypointTimeout,
-						false,  //  markerDelete 
-						spawnVehicleOnRoad   // spawn on roads - less likely that a vehicle will spawn right by a player
+						false, // deleteMarker 
+						false // spawnOnRoads							
 					] call GMSAI_fnc_spawnVehiclePatrol;
 
 					_newPatrol params["_crewGroup","_vehicle"];
-					[format["spawned vehicle patrol at %1 using typeOf vehicle %2 -> vehicle %3 with group %4",_pos, typeOf _vehicle, _vehicle, _crewGroup]] call GMSAI_fnc_log;
-					
-					if (!isNull _crewGroup && !isNull _vehicle) then { 
+										
+					if ((!isNull _crewGroup) && !(isNull _vehicle)) then { 
 						_vehiclePatrol set[vehCrewGroup,_crewGroup];
 						_vehiclePatrol set[currVehicle,_vehicle];
 						_vehiclePatrol set[vehLastSpawned,diag_tickTime];
 						_vehiclePatrol set[vehTimesSpawned,_timesSpawned + 1];
 
-						if (GMSAI_debug > 0) then {[format["GMSAI_fnc_monitorVehiclePatrols: GMSAI_fnc_spawnVehiclePatrol returned nullGrp %1 : Vehicle %2", _crewGroup, _vehicle]] call GMSAI_fnc_log};
 						_vehiclePatrol set[1,_crewGroup];
 						_vehiclePatrol set[2,_vehicle];
 						_vehiclePatrol set[3,diag_tickTime];
 						_vehiclePatrol set[4,_timesSpawned + 1];
+						[format["_monitorVehiclePatrols: spawned vehicle patrol at %1 using typeOf vehicle %2  vehicle %3 with group %4",_pos, typeOf _vehicle, _vehicle, _crewGroup]] call GMSAI_fnc_log;
 						GMSAI_vehiclePatrolGroups pushBack _crewGroup; //  Used only to count the number of active groups serving this function.
 															// This list is monitored by _mainThread and empty or null groups are periodically removed.
 					} else {
@@ -143,7 +142,7 @@ for "_i" from 1 to (count GMSAI_vehiclePatrols) do {
 							} else {;
 								if (isNull _vehicle) then {_action = 2};
 							};
-					
+							if (GMSAI_debug > 0) then {[format["GMSAI_fnc_monitorVehiclePatrols: GMSAI_fnc_spawnVehiclePatrol returned nullGrp %1 : Vehicle %2", _crewGroup, _vehicle]] call GMSAI_fnc_log};
 							throw _action; // _crewGroup was null for some reason	
 					};
 
@@ -161,11 +160,11 @@ for "_i" from 1 to (count GMSAI_vehiclePatrols) do {
 			case 4: {  // some units survive so set them up as a random patrol with time limits; set for respawn
 					// Vehicle is automatically moved to the cue for empty vehicles and handled according to setting passed when it was spawned  
 					//diag_log format["_monitorVehiclePatrols(case 4) called"];
-					private _patrolArea = createMarkerLocal[format["GMSAI_remnant%1",_crewGroup],getPosATL _vehicle];
-					{_crewGroup reveal[_x,4]} forEach [(getPosATL (leader _crewGroup)), 150] call GMSCore_fnc_nearestPlayers; 
-					_crewGroup setVariable["target",_nearPlayers select 0];
-					_patrolArea setMarkerShapeLocal "RECTANGLE";
-					_patrolArea setMarkerSizeLocal [150,150];
+					////////private _patrolArea = createMarkerLocal[format["GMSAI_remnant%1",_crewGroup],getPosATL _vehicle];
+					//{_crewGroup reveal[_x,4]} forEach [(getPosATL (leader _crewGroup)), 150] call GMSCore_fnc_nearestPlayers; 
+					//_crewGroup setVariable["target",_nearPlayers select 0];
+					////////_patrolArea setMarkerShapeLocal "RECTANGLE";
+					////////_patrolArea setMarkerSizeLocal [150,150];
 					//  	_area params["_patrolAreaMarker","_staticAiDescriptor","_areaActive","_spawnedGroups","_debugMarkers","_respawnAt","_timesSpawned","_lastDetected","_markerDelete","_lastPingedPlayer"];
 					//  	_staticAiDescriptor params["_unitsPerGroup","_difficulty","_chance","_maxRespawns","_respawnTime", "_despawnTime","_types"];
 					/*
@@ -182,6 +181,8 @@ for "_i" from 1 to (count GMSAI_vehiclePatrols) do {
 							["_respawnTimer",1000000]
 						];
 					*/
+
+					/*
 					[
 						_patrolArea,
 						[0, 0, 0, 0, 10000, 300, ["Infantry"]],  //  _staticAIDescriptor 
@@ -194,15 +195,24 @@ for "_i" from 1 to (count GMSAI_vehiclePatrols) do {
 						true,
 						10000000
 					] call GMSAI_fnc_addActiveSpawn; 
+					*/
+					/*
+					params[
+					["_group",grpNull],  // group for which to configure / initialize waypoints
+					["_patrolAreaMarker",""],  // a marker or array defining the patrol area center, size and shape
+					["_deletemarker",false],
+					["_garrisonChance",0]  // chance that an infantry group will garison an building of type house - ignored for vehicles.
+					];  
+					*/
+
+					/*
 					[
 						_crewGroup,
-						GMSAI_BlacklistedLocations,
-						_patrolArea,
-						300,  // waypoint timeout
-						GMSAI_chanceToGarisonBuilding,
-						"Infantry",
-						false  // do not delete marker defining patrol area of the group is all dead
-					] call GMSCore_fnc_initializeWaypointsAreaPatrol;
+						_patrolArea,  
+						false, // do not delete marker defining patrol area of the group is all dead// waypoint timeout
+						GMSAI_chanceToGarisonBuilding
+					] call GMSCore_fnc_initializeWaypointsAreaPatrolInfantry;
+					*/
 					GMSAI_vehiclePatrols pushBack _vehiclePatrol;					
 			};		
 		};

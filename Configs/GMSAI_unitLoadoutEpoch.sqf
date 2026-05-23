@@ -6,7 +6,7 @@
 
 	Copyright 2020 Ghostrider-GRG-	
 */
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 
 /*
 	CONFIGUREATIONS BEGIN HERE

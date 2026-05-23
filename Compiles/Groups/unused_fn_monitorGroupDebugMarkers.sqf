@@ -10,7 +10,7 @@
 	Copyright 2020 Ghostrider-GRG-
 */
 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 for "_i" from 1 to (count GMSAI_groupDebugMarkers) do 
 {
 	if (_i > (count GMSAI_groupDebugMarkers)) exitWith {};

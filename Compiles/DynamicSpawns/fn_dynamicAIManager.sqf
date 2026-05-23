@@ -11,7 +11,7 @@
 	Copyright 2020 Ghostrider-GRG-
 */
 
-#include "\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
+#include "\x\addons\GMSAI\Compiles\initialization\GMSAI_defines.hpp" 
 #define GMSAI_dynamicSpawnDistance 300
 #define GMSAI_dynamicDespawnDistance 400
 #define GMSAI_alertAIDistance 300
@@ -104,7 +104,7 @@ if (( count GMSAI_dynamicGroups) >= GMSAI_maxActiveDynamicSpawns) exitWith {if (
 		{
 			//private _nearAI = [_player] call GMSCore_fnc_nearestGMSAI;
 
-			if ([getPosATL _player,GMSAI_BlacklistedLocations] call GMSCore_fnc_isBlacklisted) then 
+			if ([getPosATL _player,GMSAI_BlacklistedLocation,"_dynamicAIManager"] call GMSCore_fnc_isBlacklisted) then 
 			{
 				//[format["dynamicAIManager: player %1 in blacklisted area",_player]] call GMSAI_fnc_log;
 			} else {
